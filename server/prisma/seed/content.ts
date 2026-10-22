@@ -131,7 +131,7 @@ export const team = [
     name: 'Yuvaraj',
     role: 'Founder & Managing Director',
     roleTa: 'நிறுவனர் & நிர்வாக இயக்குநர்',
-    photoUrl: null,
+    photoUrl: '/images/about/founder.webp',
     bio: [
       'Hi all! I am Yuvaraj, the founder and managing director of Agamathi Kalvi — and a sports and body-building enthusiast. I have been helping the student community choose their dream course in elite institutions since 2012. In almost 10 years in the educational field I have guided nearly 1 lakh students. I love interacting with students, so I visit schools and colleges regularly to conduct career guidance sessions and share knowledge about diverse courses, colleges and career options. I love clearing the doubts of students and parents, helping them choose their dream course with 100% confidence.',
       'My long-term goal is to create 100+ leaders who can help students from under-privileged and rural backgrounds by giving them proper guidance to choose their dream — changing their lives forever. My team is planning to reach 1000+ schools in the coming years through school programs, to impact the lives of as many students as possible.',

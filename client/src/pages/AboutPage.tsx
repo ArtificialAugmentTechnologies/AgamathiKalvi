@@ -93,12 +93,29 @@ export default function AboutPage() {
               <p className="mt-2 text-ink-muted">
                 {localized(isTamil, founder.role, founder.roleTa)}
               </p>
-              <span
-                aria-hidden
-                className="mt-8 grid size-28 place-items-center rounded-full bg-gradient-to-br from-ink-accent to-[#f2b48f] font-serif text-5xl font-semibold text-[#1a0f0a]"
-              >
-                {founder.name.charAt(0)}
-              </span>
+              {founder.photoUrl ? (
+                <div className="relative mt-8 max-w-xs">
+                  <div
+                    aria-hidden
+                    className="absolute inset-x-6 bottom-0 top-16 rounded-[2.5rem] bg-gradient-to-br from-ink-accent/40 via-sky/20 to-transparent blur-2xl"
+                  />
+                  <img
+                    src={founder.photoUrl}
+                    alt={`${founder.name}, ${localized(isTamil, founder.role, founder.roleTa)}`}
+                    width={388}
+                    height={510}
+                    loading="lazy"
+                    className="relative w-full drop-shadow-2xl"
+                  />
+                </div>
+              ) : (
+                <span
+                  aria-hidden
+                  className="mt-8 grid size-28 place-items-center rounded-full bg-gradient-to-br from-ink-accent to-[#f2b48f] font-serif text-5xl font-semibold text-[#1a0f0a]"
+                >
+                  {founder.name.charAt(0)}
+                </span>
+              )}
             </div>
             <blockquote className="relative space-y-5 font-serif text-lg leading-relaxed sm:text-xl">
               <Quote className="size-10 text-ink-accent" aria-hidden />
