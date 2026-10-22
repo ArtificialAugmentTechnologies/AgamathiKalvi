@@ -1,6 +1,6 @@
+import { CallToAction } from '@/components/common/CallToAction';
 import { AppComingSoon } from '@/features/home/AppComingSoon';
 import { BlogSection } from '@/features/home/BlogSection';
-import { ClosingCta } from '@/features/home/ClosingCta';
 import { FaqSection } from '@/features/home/FaqSection';
 import { HeroSection } from '@/features/home/HeroSection';
 import { HowItWorks } from '@/features/home/HowItWorks';
@@ -30,7 +30,7 @@ export default function HomePage() {
       <InviteSchoolSection />
       <AppComingSoon />
       <FaqSection />
-      <ClosingCta />
+      <CallToAction />
     </>
   );
 }

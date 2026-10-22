@@ -52,6 +52,55 @@ export type BlogCard = {
   category: { slug: string; name: string; nameTa: string | null } | null;
 };
 
+export type BlogPost = Omit<BlogCard, 'category'> & {
+  body: string;
+  category: BlogCard['category'];
+};
+
+export type TeamMember = {
+  id: string;
+  name: string;
+  role: string;
+  roleTa: string | null;
+  bio: string | null;
+  photoUrl: string | null;
+};
+
+export type MediaItem = {
+  id: string;
+  type: 'photo' | 'video' | 'press';
+  title: string;
+  titleTa: string | null;
+  url: string | null;
+  youtubeId: string | null;
+  year: number;
+  event: string | null;
+};
+
+export type StreamRef = { slug: string; name: string; nameTa: string | null; kind: string };
+export type Stream = StreamRef & { _count: { careers: number } };
+
+export type CareerSummary = {
+  slug: string;
+  title: string;
+  titleTa: string | null;
+  summary: string;
+  entry: 'after10' | 'after12';
+  cluster: string;
+  salaryMin: number | null;
+  salaryMax: number | null;
+  stream: StreamRef;
+};
+
+export type Career = CareerSummary & {
+  overview: string;
+  eligibility: string;
+  exams: string[];
+  topColleges: string[];
+  scholarshipNote: string | null;
+  futureScope: string;
+};
+
 export type PartnerLogo = { id: string; name: string; logoUrl: string };
 
 export type Faq = {

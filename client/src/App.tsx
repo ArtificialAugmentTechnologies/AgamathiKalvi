@@ -4,23 +4,24 @@ import { SiteLayout } from '@/components/layout/SiteLayout';
 import type { TKey } from '@/config/navigation';
 import { ComingSoonPage } from '@/pages/ComingSoonPage';
 
+// Every page is its own chunk, downloaded on first visit.
 const HomePage = lazy(() => import('@/pages/HomePage'));
+const AboutPage = lazy(() => import('@/pages/AboutPage'));
+const CareersPage = lazy(() => import('@/pages/CareersPage'));
+const CareerDetailPage = lazy(() => import('@/pages/CareerDetailPage'));
+const CareerTunerPage = lazy(() => import('@/pages/programs/CareerTunerPage'));
+const StudentpreneurPage = lazy(() => import('@/pages/programs/StudentpreneurPage'));
+const AbroadPage = lazy(() => import('@/pages/programs/AbroadPage'));
+const Class1112Page = lazy(() => import('@/pages/programs/Class1112Page'));
+const Class10Page = lazy(() => import('@/pages/programs/Class10Page'));
+const MediaPage = lazy(() => import('@/pages/MediaPage'));
+const BlogPage = lazy(() => import('@/pages/BlogPage'));
+const BlogPostPage = lazy(() => import('@/pages/BlogPostPage'));
+const ContactPage = lazy(() => import('@/pages/ContactPage'));
 const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'));
 
 // Routes still to be built: [path, page-title key, phase that builds it].
 const upcoming: [string, TKey, string][] = [
-  ['/about', 'pages.about', '4'],
-  ['/careers', 'pages.careers', '4'],
-  ['/careers/:slug', 'pages.careerDetail', '4'],
-  ['/programs/career-tuner', 'pages.careerTuner', '4'],
-  ['/programs/studentpreneur', 'pages.studentpreneur', '4'],
-  ['/programs/abroad', 'pages.abroad', '4'],
-  ['/programs/class-11-12', 'pages.class1112', '4'],
-  ['/programs/class-10', 'pages.class10', '4'],
-  ['/media', 'pages.media', '4'],
-  ['/blog', 'pages.blog', '4'],
-  ['/blog/:slug', 'pages.blogPost', '4'],
-  ['/contact', 'pages.contact', '4'],
   ['/tools', 'pages.tools', '5'],
   ['/tools/cutoff-calculator', 'pages.cutoff', '5'],
   ['/tools/college-predictor', 'pages.predictor', '5'],
@@ -41,6 +42,18 @@ export function App() {
     <Routes>
       <Route element={<SiteLayout />}>
         <Route index element={<HomePage />} />
+        <Route path="about" element={<AboutPage />} />
+        <Route path="careers" element={<CareersPage />} />
+        <Route path="careers/:slug" element={<CareerDetailPage />} />
+        <Route path="programs/career-tuner" element={<CareerTunerPage />} />
+        <Route path="programs/studentpreneur" element={<StudentpreneurPage />} />
+        <Route path="programs/abroad" element={<AbroadPage />} />
+        <Route path="programs/class-11-12" element={<Class1112Page />} />
+        <Route path="programs/class-10" element={<Class10Page />} />
+        <Route path="media" element={<MediaPage />} />
+        <Route path="blog" element={<BlogPage />} />
+        <Route path="blog/:slug" element={<BlogPostPage />} />
+        <Route path="contact" element={<ContactPage />} />
         {upcoming.map(([path, titleKey, phase]) => (
           <Route
             key={path}

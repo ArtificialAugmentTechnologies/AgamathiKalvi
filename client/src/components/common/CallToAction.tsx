@@ -3,10 +3,19 @@ import { useTranslation } from 'react-i18next';
 import { WhatsAppIcon } from '@/components/icons/BrandIcons';
 import { Reveal } from '@/components/common/Reveal';
 import { Button } from '@/components/ui/button';
+import type { BookingPreset } from '@/features/booking/BookingProvider';
 import { useBookCounselling } from '@/features/booking/useBookCounselling';
 import { useWhatsAppNumber } from '@/hooks/useSettings';
 
-export function ClosingCta() {
+type Props = {
+  title?: string;
+  body?: string;
+  /** Pre-fills the booking dialog, e.g. the interest for a career page. */
+  preset?: BookingPreset;
+};
+
+/** Closing band used at the bottom of most pages: book counselling or chat on WhatsApp. */
+export function CallToAction({ title, body, preset }: Props) {
   const { t } = useTranslation();
   const book = useBookCounselling();
   const whatsapp = useWhatsAppNumber();
@@ -18,13 +27,15 @@ export function ClosingCta() {
           <div aria-hidden className="bg-grid absolute inset-0 opacity-40" />
           <div className="relative">
             <h2 className="mx-auto max-w-2xl text-3xl font-semibold sm:text-5xl">
-              {t('home.cta.title')}
+              {title ?? t('home.cta.title')}
             </h2>
-            <p className="mx-auto mt-4 max-w-xl text-ink-muted sm:text-lg">{t('home.cta.body')}</p>
+            <p className="mx-auto mt-4 max-w-xl text-ink-muted sm:text-lg">
+              {body ?? t('home.cta.body')}
+            </p>
             <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
               <Button
                 size="lg"
-                onClick={book}
+                onClick={() => book(preset)}
                 className="bg-ink-accent text-[#1a0f0a] hover:bg-ink-accent/90"
               >
                 {t('common.bookCounselling')} <ArrowRight />

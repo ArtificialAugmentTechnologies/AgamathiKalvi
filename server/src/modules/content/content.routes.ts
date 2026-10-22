@@ -1,4 +1,6 @@
 import { Router } from 'express';
+import { z } from 'zod';
+import { notFound } from '../../lib/http-error.js';
 import { prisma } from '../../lib/prisma.js';
 
 // Public, read-only site content used by the Home and About pages.
@@ -47,6 +49,31 @@ contentRouter.get('/blog', async (_req, res) => {
         publishedAt: true,
         category: { select: { slug: true, name: true, nameTa: true } },
       },
+    }),
+  );
+});
+
+contentRouter.get('/blog/:slug', async (req, res) => {
+  const post = await prisma.blogPost.findFirst({
+    where: { slug: req.params.slug, status: 'published' },
+    include: { category: { select: { slug: true, name: true, nameTa: true } } },
+  });
+  if (!post) throw notFound('Article');
+  const { needsReview: _review, categoryId: _categoryId, ...publicFields } = post;
+  res.json(publicFields);
+});
+
+const mediaQuery = z.object({
+  type: z.enum(['photo', 'video', 'press']).optional(),
+  year: z.coerce.number().int().min(2000).max(2100).optional(),
+});
+
+contentRouter.get('/media', async (req, res) => {
+  const { type, year } = mediaQuery.parse(req.query);
+  res.json(
+    await prisma.mediaItem.findMany({
+      where: { type, year },
+      orderBy: [{ year: 'desc' }, { order: 'asc' }],
     }),
   );
 });

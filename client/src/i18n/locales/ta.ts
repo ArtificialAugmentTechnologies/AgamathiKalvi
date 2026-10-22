@@ -1,3 +1,4 @@
+import { taPages } from './ta-pages';
 // Tamil strings — first draft, to be reviewed by a fluent Tamil speaker before launch.
 import type { Translation } from './en';
 
@@ -338,4 +339,5 @@ export const ta: Translation = {
     notFound: 'பக்கம் கிடைக்கவில்லை',
     notFoundBody: 'நீங்கள் தேடும் பக்கம் இல்லை அல்லது இடம் மாறியுள்ளது.',
   },
+  ...taPages,
 };

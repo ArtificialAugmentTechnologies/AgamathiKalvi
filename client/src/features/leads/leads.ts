@@ -34,6 +34,17 @@ export type SchoolInviteForm = z.infer<typeof schoolInviteForm>;
 export type LeadPayload =
   | ({ type: 'school_invite'; source?: string } & SchoolInviteForm)
   | {
+      type: 'contact';
+      source?: string;
+      name: string;
+      phone: string;
+      email?: string;
+      classLevel?: string;
+      message: string;
+      preferredTime?: string;
+      website?: string;
+    }
+  | {
       type: 'counselling';
       source?: string;
       name: string;

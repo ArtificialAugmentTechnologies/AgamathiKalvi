@@ -2,3 +2,4 @@
 export const loadHeroScene = () => import('./HeroScene');
 export const loadBlobScene = () => import('./BlobScene');
 export const loadShapesScene = () => import('./ShapesScene');
+export const loadGlobeScene = () => import('./GlobeScene');

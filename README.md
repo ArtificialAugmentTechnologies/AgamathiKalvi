@@ -66,17 +66,23 @@ The seed creates an admin login from `SEED_ADMIN_EMAIL` and `SEED_ADMIN_PASSWORD
 - **Sample data:** the cutoffs for the 42 colleges are **generated** and are not official TNEA data. The college names are real. Every row is flagged `isSample`, and the UI will label it. Replace the cutoffs with real data through the admin CSV import (Phase 7).
 - **Re-running the seed:** CMS tables are filled only when they are empty, and existing settings and the admin account are never overwritten. Only the sample colleges and cutoffs are rebuilt.
 
-## API (Phase 1)
+## API
 
-| Endpoint                        | Returns                                        |
-| ------------------------------- | ---------------------------------------------- |
-| `GET /api/health`               | `{ status, db }` (503 if the database is down) |
-| `GET /api/content/settings`     | Stats, contact details, social links           |
-| `GET /api/content/testimonials` | Published testimonials                         |
-| `GET /api/content/team`         | Team members                                   |
-| `GET /api/content/faqs`         | Published FAQs                                 |
-| `GET /api/content/partners`     | Partner college logos                          |
-| `GET /api/content/blog`         | Published blog post cards                      |
+| Endpoint                        | Returns                                           |
+| ------------------------------- | ------------------------------------------------- |
+| `GET /api/health`               | `{ status, db }` (503 if the database is down)    |
+| `GET /api/content/settings`     | Stats, contact details, social links              |
+| `GET /api/content/testimonials` | Published testimonials                            |
+| `GET /api/content/team`         | Team members                                      |
+| `GET /api/content/faqs`         | Published FAQs                                    |
+| `GET /api/content/partners`     | Partner college logos                             |
+| `GET /api/content/blog`         | Published blog post cards                         |
+| `GET /api/content/blog/:slug`   | One published article (404 if missing)            |
+| `GET /api/content/media`        | Gallery items (`?type=photo&year=2022`)           |
+| `GET /api/careers`              | Careers (`?stream=science&entry=after12&q=…`)     |
+| `GET /api/careers/:slug`        | One career with full details                      |
+| `GET /api/careers/streams`      | Streams with career counts                        |
+| `POST /api/leads`               | Save a school invite, contact or counselling lead |
 
 ## Troubleshooting
 
