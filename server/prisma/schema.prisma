@@ -1,0 +1,533 @@
+// Agamathikalvi data model.
+// Portability: avoid Postgres-only features (scalar lists, native enums via @db) so the
+// provider can be switched to "mysql" without model changes. List-like fields use Json.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  // Pooled connection used by the running app (Neon: the "-pooler" host).
+  url       = env("DATABASE_URL")
+  // Direct connection used by migrations (Neon: the host without "-pooler").
+  directUrl = env("DIRECT_URL")
+}
+
+// ─────────────────────────── Enums ───────────────────────────
+
+enum Role {
+  student
+  counsellor
+  admin
+}
+
+enum LeadType {
+  school_invite
+  contact
+  counselling
+}
+
+enum LeadStatus {
+  new
+  contacted
+  converted
+  closed
+}
+
+enum BookingStatus {
+  pending
+  confirmed
+  completed
+  cancelled
+}
+
+enum BookingMode {
+  phone
+  video
+  office
+}
+
+enum Community {
+  OC
+  BC
+  BCM
+  MBC
+  SC
+  SCA
+  ST
+}
+
+enum StreamKind {
+  science
+  commerce
+  arts
+  vocational
+}
+
+enum ClassLevel {
+  class10
+  class11
+  class12
+}
+
+enum CareerEntry {
+  after10
+  after12
+}
+
+enum CollegeType {
+  government
+  aided
+  autonomous
+  self_financing
+  deemed
+}
+
+enum MediaType {
+  photo
+  video
+  press
+}
+
+enum ContentStatus {
+  draft
+  published
+}
+
+enum Gender {
+  female
+  male
+  any
+}
+
+enum ToolKind {
+  cutoff
+  predictor
+  quiz
+  scholarship
+}
+
+// ─────────────────────────── Users ───────────────────────────
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  phone        String?
+  role         Role     @default(student)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  profile       StudentProfile?
+  assignedLeads Lead[]            @relation("LeadAssignee")
+  slots         CounsellingSlot[]
+  bookings      Booking[]
+  choiceLists   ChoiceList[]
+  quizResults   QuizResult[]
+  savedResults  SavedResult[]
+
+  @@index([role])
+}
+
+model StudentProfile {
+  id         String      @id @default(cuid())
+  userId     String      @unique
+  user       User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  classLevel ClassLevel?
+  school     String?
+  district   String?
+  community  Community?
+  /// e.g. { "maths": 98, "physics": 92, "chemistry": 95 }
+  marks      Json?
+  /// string[]
+  interests  Json?
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+}
+
+/// A saved output of any public tool (cutoff, predictor, quiz, scholarship finder).
+model SavedResult {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tool      ToolKind
+  title     String?
+  input     Json
+  output    Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId, tool])
+}
+
+// ─────────────────────── Leads & bookings ───────────────────────
+
+model Lead {
+  id            String     @id @default(cuid())
+  type          LeadType
+  status        LeadStatus @default(new)
+  name          String
+  phone         String
+  email         String?
+  schoolName    String?
+  classLevel    String?
+  district      String?
+  message       String?    @db.Text
+  preferredTime String?
+  /// Where the lead came from, e.g. "home-invite", "contact-page", "booking-modal"
+  source        String?
+  /// Type-specific extras, e.g. counselling: { interest, cutoff, mode }
+  meta          Json?
+  notes         String?    @db.Text
+  assignedToId  String?
+  assignedTo    User?      @relation("LeadAssignee", fields: [assignedToId], references: [id], onDelete: SetNull)
+  bookings      Booking[]
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+
+  @@index([type, status])
+  @@index([createdAt])
+  @@index([assignedToId])
+}
+
+model CounsellingSlot {
+  id           String      @id @default(cuid())
+  startsAt     DateTime
+  endsAt       DateTime
+  mode         BookingMode
+  capacity     Int         @default(1)
+  counsellorId String?
+  counsellor   User?       @relation(fields: [counsellorId], references: [id], onDelete: SetNull)
+  bookings     Booking[]
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+
+  @@index([startsAt])
+}
+
+model Booking {
+  id        String          @id @default(cuid())
+  slotId    String
+  slot      CounsellingSlot @relation(fields: [slotId], references: [id], onDelete: Cascade)
+  userId    String?
+  user      User?           @relation(fields: [userId], references: [id], onDelete: SetNull)
+  leadId    String?
+  lead      Lead?           @relation(fields: [leadId], references: [id], onDelete: SetNull)
+  status    BookingStatus   @default(pending)
+  cutoff    Float?
+  notes     String?         @db.Text
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+
+  @@index([status])
+  @@index([slotId])
+  @@index([userId])
+}
+
+// ─────────────────────── Careers & scholarships ───────────────────────
+
+model Stream {
+  id        String     @id @default(cuid())
+  slug      String     @unique
+  name      String
+  nameTa    String?
+  kind      StreamKind
+  order     Int        @default(0)
+  careers   Career[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+model Career {
+  id          String        @id @default(cuid())
+  slug        String        @unique
+  title       String
+  titleTa     String?
+  streamId    String
+  stream      Stream        @relation(fields: [streamId], references: [id], onDelete: Restrict)
+  entry       CareerEntry
+  /// Groups careers for the interest quiz, e.g. "technology", "healthcare"
+  cluster     String
+  summary     String
+  overview    String        @db.Text
+  eligibility String        @db.Text
+  /// string[] of entrance exams
+  exams       Json
+  /// string[] of top Tamil Nadu colleges for this career
+  topColleges Json
+  scholarshipNote String?   @db.Text
+  /// Annual salary range in INR
+  salaryMin   Int?
+  salaryMax   Int?
+  futureScope String        @db.Text
+  status      ContentStatus @default(published)
+  /// True when the copy was drafted by the dev team and still needs expert review
+  needsReview Boolean       @default(false)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  @@index([streamId])
+  @@index([cluster])
+  @@index([status])
+}
+
+model Scholarship {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  name        String
+  nameTa      String?
+  provider    String
+  description String   @db.Text
+  amount      String
+  /// ClassLevel[]
+  classLevels Json
+  /// Community[]; empty = open to all
+  communities Json
+  /// Max annual family income in INR; null = no limit
+  incomeMax   Int?
+  gender      Gender   @default(any)
+  /// StreamKind[]; empty = any stream
+  streams     Json
+  link        String?
+  deadline    String?
+  isSample    Boolean  @default(false)
+  needsReview Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ─────────────────────── Colleges & cutoffs ───────────────────────
+
+model College {
+  id        String          @id @default(cuid())
+  tneaCode  String?         @unique
+  name      String
+  shortName String?
+  district  String
+  type      CollegeType
+  website   String?
+  logoUrl   String?
+  isSample  Boolean         @default(false)
+  branches  CollegeBranch[]
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+
+  @@index([district])
+  @@index([type])
+}
+
+model Branch {
+  id        String          @id @default(cuid())
+  code      String          @unique
+  name      String
+  nameTa    String?
+  colleges  CollegeBranch[]
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+}
+
+model CollegeBranch {
+  id          String           @id @default(cuid())
+  collegeId   String
+  college     College          @relation(fields: [collegeId], references: [id], onDelete: Cascade)
+  branchId    String
+  branch      Branch           @relation(fields: [branchId], references: [id], onDelete: Cascade)
+  intake      Int?
+  cutoffs     CutoffHistory[]
+  choiceItems ChoiceListItem[]
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+
+  @@unique([collegeId, branchId])
+  @@index([branchId])
+}
+
+model CutoffHistory {
+  id              String        @id @default(cuid())
+  collegeBranchId String
+  collegeBranch   CollegeBranch @relation(fields: [collegeBranchId], references: [id], onDelete: Cascade)
+  year            Int
+  round           Int           @default(1)
+  community       Community
+  /// Closing cutoff out of 200
+  closingCutoff   Float
+  closingRank     Int?
+  isSample        Boolean       @default(false)
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  @@unique([collegeBranchId, year, round, community])
+  @@index([community, year, closingCutoff])
+}
+
+model ChoiceList {
+  id        String           @id @default(cuid())
+  userId    String
+  user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name      String
+  items     ChoiceListItem[]
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+
+  @@index([userId])
+}
+
+model ChoiceListItem {
+  id              String        @id @default(cuid())
+  listId          String
+  list            ChoiceList    @relation(fields: [listId], references: [id], onDelete: Cascade)
+  collegeBranchId String
+  collegeBranch   CollegeBranch @relation(fields: [collegeBranchId], references: [id], onDelete: Cascade)
+  position        Int
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  @@unique([listId, collegeBranchId])
+  @@index([listId, position])
+}
+
+// ─────────────────────── Career quiz ───────────────────────
+
+model QuizQuestion {
+  id        String   @id @default(cuid())
+  order     Int
+  text      String
+  textTa    String?
+  /// [{ "label": "...", "labelTa": "...", "weights": { "technology": 2, "arts": 1 } }]
+  options   Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([order])
+}
+
+model QuizResult {
+  id          String   @id @default(cuid())
+  userId      String?
+  user        User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  answers     Json
+  /// [{ "cluster": "technology", "score": 14 }]
+  topClusters Json
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([userId])
+}
+
+// ─────────────────────── Site content (CMS) ───────────────────────
+
+model BlogCategory {
+  id        String     @id @default(cuid())
+  slug      String     @unique
+  name      String
+  nameTa    String?
+  posts     BlogPost[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+model BlogPost {
+  id          String        @id @default(cuid())
+  slug        String        @unique
+  title       String
+  titleTa     String?
+  excerpt     String
+  /// Markdown body
+  body        String        @db.Text
+  coverUrl    String?
+  /// Optional downloadable attachment (e.g. legacy PDFs)
+  pdfUrl      String?
+  readingMins Int           @default(3)
+  categoryId  String?
+  category    BlogCategory? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  status      ContentStatus @default(draft)
+  comingSoon  Boolean       @default(false)
+  needsReview Boolean       @default(false)
+  publishedAt DateTime?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  @@index([status, publishedAt])
+  @@index([categoryId])
+}
+
+model Testimonial {
+  id        String   @id @default(cuid())
+  name      String
+  town      String
+  quote     String   @db.Text
+  quoteTa   String?  @db.Text
+  avatarUrl String?
+  order     Int      @default(0)
+  published Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([published, order])
+}
+
+model TeamMember {
+  id        String   @id @default(cuid())
+  name      String
+  role      String
+  roleTa    String?
+  bio       String?  @db.Text
+  photoUrl  String?
+  order     Int      @default(0)
+  published Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([published, order])
+}
+
+model MediaItem {
+  id        String    @id @default(cuid())
+  type      MediaType
+  title     String
+  titleTa   String?
+  /// Image URL (photo/press) — null for YouTube videos
+  url       String?
+  youtubeId String?
+  year      Int
+  event     String?
+  order     Int       @default(0)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@index([type, year])
+}
+
+model PartnerLogo {
+  id        String   @id @default(cuid())
+  name      String
+  logoUrl   String
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Faq {
+  id          String   @id @default(cuid())
+  question    String
+  questionTa  String?
+  answer      String   @db.Text
+  answerTa    String?  @db.Text
+  order       Int      @default(0)
+  published   Boolean  @default(true)
+  needsReview Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([published, order])
+}
+
+/// Key/value settings: home stats, about stats, contact details, social links.
+model SiteSetting {
+  key       String   @id
+  value     Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

@@ -1,0 +1,225 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * Design tokens.
+ * Dark (default): deep navy-blue surfaces, ivory text, warm clay accent, soft blue glow.
+ * Light: warm ivory paper, near-black ink, deeper clay for AA contrast.
+ * The logo yellow is reserved for small brand highlights.
+ */
+:root {
+  --background: #faf9f5;
+  --foreground: #1f1e1d;
+  --card: #ffffff;
+  --card-foreground: #1f1e1d;
+  --popover: #ffffff;
+  --popover-foreground: #1f1e1d;
+  --primary: #b5532f;
+  --primary-foreground: #ffffff;
+  --secondary: #ecebe4;
+  --secondary-foreground: #1f1e1d;
+  --muted: #f0eee6;
+  --muted-foreground: #5e5d59;
+  --accent: #f3e6dc;
+  --accent-foreground: #1f1e1d;
+  --destructive: #c62828;
+  --border: #e3e0d6;
+  --input: #d9d5c9;
+  --ring: #b5532f;
+
+  --sky: #1d4ed8;
+  --sky-soft: #dbe6ff;
+  --clay-soft: #f6dfd3;
+  --brand-yellow: #ffd800;
+  --success: #15803d;
+  --dream: #be123c;
+
+  /* Always-dark band used by the footer and feature sections in both themes */
+  --ink: #060b16;
+  --ink-2: #0e172b;
+  --ink-foreground: #f3eee3;
+  --ink-muted: #a3adc2;
+  --ink-border: #22304d;
+  --ink-accent: #e08a68;
+
+  --radius: 0.875rem;
+}
+
+.dark {
+  --background: #0a1222;
+  --foreground: #f3eee3;
+  --card: #101a2e;
+  --card-foreground: #f3eee3;
+  --popover: #111c31;
+  --popover-foreground: #f3eee3;
+  --primary: #e08a68;
+  --primary-foreground: #1a0f0a;
+  --secondary: #1a2742;
+  --secondary-foreground: #f3eee3;
+  --muted: #141f36;
+  --muted-foreground: #a3adc2;
+  --accent: #1a2742;
+  --accent-foreground: #f3eee3;
+  --destructive: #f87171;
+  --border: #22304d;
+  --input: #2a3a5c;
+  --ring: #e08a68;
+
+  --sky: #6ea8ff;
+  --sky-soft: #15284a;
+  --clay-soft: #3a2420;
+  --success: #4ade80;
+  --dream: #fb7185;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-sky: var(--sky);
+  --color-sky-soft: var(--sky-soft);
+  --color-clay-soft: var(--clay-soft);
+  --color-brand-yellow: var(--brand-yellow);
+  --color-success: var(--success);
+  --color-dream: var(--dream);
+  --color-whatsapp: #25d366;
+
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-foreground: var(--ink-foreground);
+  --color-ink-muted: var(--ink-muted);
+  --color-ink-border: var(--ink-border);
+  --color-ink-accent: var(--ink-accent);
+
+  --radius-sm: calc(var(--radius) - 6px);
+  --radius-md: calc(var(--radius) - 3px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 6px);
+  --radius-2xl: calc(var(--radius) + 12px);
+
+  /* Tamil glyphs fall through to Noto automatically (Inter/Source Serif have none). */
+  --font-sans:
+    'Inter Variable', 'Noto Sans Tamil Variable', ui-sans-serif, system-ui, -apple-system,
+    'Segoe UI', sans-serif;
+  --font-serif:
+    'Source Serif 4 Variable', 'Noto Serif Tamil Variable', ui-serif, Georgia, 'Times New Roman',
+    serif;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    -webkit-tap-highlight-color: transparent;
+    scroll-padding-top: 5rem;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-feature-settings: 'cv11', 'ss01';
+    text-rendering: optimizeLegibility;
+  }
+  h1,
+  h2,
+  h3 {
+    @apply font-serif tracking-tight text-balance;
+  }
+  ::selection {
+    background: color-mix(in srgb, var(--primary) 35%, transparent);
+  }
+  /* Tamil script is taller — give it more room. */
+  :lang(ta) h1,
+  :lang(ta) h2,
+  :lang(ta) h3 {
+    line-height: 1.3;
+    letter-spacing: 0;
+  }
+  :lang(ta) body {
+    line-height: 1.7;
+  }
+}
+
+@utility container-page {
+  width: 100%;
+  margin-inline: auto;
+  max-width: 80rem;
+  padding-inline: 1rem;
+  @media (width >= 40rem) {
+    padding-inline: 1.5rem;
+  }
+  @media (width >= 64rem) {
+    padding-inline: 2rem;
+  }
+}
+
+/* Soft blue + clay glow used behind hero and feature sections. */
+@utility bg-aurora {
+  background:
+    radial-gradient(
+      60% 50% at 15% 10%,
+      color-mix(in srgb, var(--sky) 22%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      50% 45% at 85% 20%,
+      color-mix(in srgb, var(--primary) 20%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      70% 60% at 50% 100%,
+      color-mix(in srgb, var(--sky) 12%, transparent),
+      transparent 70%
+    );
+}
+
+@utility text-gradient-clay {
+  background: linear-gradient(100deg, var(--primary), #f2b48f 55%, var(--sky));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility bg-grid {
+  background-image:
+    linear-gradient(
+      to right,
+      color-mix(in srgb, var(--foreground) 6%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--foreground) 6%, transparent) 1px,
+      transparent 1px
+    );
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+}
+
+/* Partner logo strip: two identical copies, shift by one copy for a seamless loop. */
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@utility pb-safe {
+  padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+}
