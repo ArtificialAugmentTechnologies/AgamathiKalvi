@@ -19,6 +19,7 @@ export default function StudentpreneurPage() {
   return (
     <>
       <PageHeader
+        art="studentpreneur"
         eyebrow={t('programPages.studentpreneur.eyebrow')}
         title={t('programPages.studentpreneur.title')}
         description={t('programPages.studentpreneur.lead')}

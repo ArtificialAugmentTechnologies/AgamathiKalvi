@@ -58,6 +58,7 @@ export default function CutoffCalculatorPage() {
   return (
     <>
       <PageHeader
+        art="cutoff"
         eyebrow={t('nav.toolsHeading')}
         title={t('pages.cutoff')}
         description={t('cutoffPage.lead')}

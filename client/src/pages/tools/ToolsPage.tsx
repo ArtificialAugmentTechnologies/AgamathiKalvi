@@ -15,6 +15,7 @@ export default function ToolsPage() {
   return (
     <>
       <PageHeader
+        art="tools"
         eyebrow={t('toolsHub.eyebrow')}
         title={t('toolsHub.title')}
         description={t('toolsHub.subtitle')}

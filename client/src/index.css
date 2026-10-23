@@ -257,6 +257,25 @@
   }
 }
 
+/* Page-header topic art: orbiting icons and twinkling sparks. */
+@keyframes orbit {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.2;
+    transform: scale(0.6);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
 @keyframes float {
   0%,
   100% {

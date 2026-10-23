@@ -28,6 +28,7 @@ export default function AbroadPage() {
   return (
     <>
       <PageHeader
+        art="abroad"
         eyebrow={t('programPages.abroad.eyebrow')}
         title={t('programPages.abroad.title')}
         description={t('programPages.abroad.lead')}

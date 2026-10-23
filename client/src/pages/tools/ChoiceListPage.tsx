@@ -47,6 +47,7 @@ export default function ChoiceListPage() {
     <>
       <div className="print:hidden">
         <PageHeader
+          art="choiceList"
           eyebrow={t('nav.toolsHeading')}
           title={t('pages.choiceList')}
           description={t('choiceList.lead')}

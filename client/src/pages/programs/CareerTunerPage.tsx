@@ -24,6 +24,7 @@ export default function CareerTunerPage() {
   return (
     <>
       <PageHeader
+        art="careerTuner"
         eyebrow={t('programPages.careerTuner.eyebrow')}
         title={t('pages.careerTuner')}
         description={t('programPages.careerTuner.lead')}

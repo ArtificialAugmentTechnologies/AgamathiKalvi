@@ -58,6 +58,7 @@ export default function CareersPage() {
   return (
     <>
       <PageHeader
+        art="careers"
         eyebrow={t('careersHub.eyebrow')}
         title={t('careersHub.title')}
         description={t('careersHub.subtitle')}

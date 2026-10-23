@@ -38,6 +38,7 @@ export default function MediaPage() {
   return (
     <>
       <PageHeader
+        art="media"
         eyebrow={t('mediaPage.eyebrow')}
         title={t('mediaPage.title')}
         description={t('mediaPage.subtitle')}

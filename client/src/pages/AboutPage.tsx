@@ -28,6 +28,7 @@ export default function AboutPage() {
   return (
     <>
       <PageHeader
+        art="about"
         eyebrow={t('about.eyebrow')}
         title={t('about.title')}
         description={t('about.intro')}

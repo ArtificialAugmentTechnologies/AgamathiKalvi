@@ -78,6 +78,7 @@ export default function PredictorPage() {
   return (
     <>
       <PageHeader
+        art="predictor"
         eyebrow={t('nav.toolsHeading')}
         title={t('pages.predictor')}
         description={t('predictor.lead')}

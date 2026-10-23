@@ -84,6 +84,7 @@ export default function ContactPage() {
   return (
     <>
       <PageHeader
+        art="contact"
         eyebrow={t('contactPage.eyebrow')}
         title={t('contactPage.title')}
         description={t('contactPage.subtitle')}

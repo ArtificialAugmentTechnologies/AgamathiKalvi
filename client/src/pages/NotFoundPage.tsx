@@ -9,7 +9,12 @@ export default function NotFoundPage() {
   usePageMeta(t('pages.notFound'));
 
   return (
-    <PageHeader eyebrow="404" title={t('pages.notFound')} description={t('pages.notFoundBody')}>
+    <PageHeader
+      art="notFound"
+      eyebrow="404"
+      title={t('pages.notFound')}
+      description={t('pages.notFoundBody')}
+    >
       <Button asChild size="lg">
         <Link to="/">{t('common.backHome')}</Link>
       </Button>

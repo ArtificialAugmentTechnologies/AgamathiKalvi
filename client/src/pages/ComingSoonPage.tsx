@@ -16,7 +16,7 @@ export function ComingSoonPage({ titleKey, phase }: { titleKey: TKey; phase: str
 
   return (
     <>
-      <PageHeader eyebrow={t('common.comingSoon')} title={title} />
+      <PageHeader art="comingSoon" eyebrow={t('common.comingSoon')} title={title} />
       <section className="container-page pb-20">
         <div className="flex flex-col items-start gap-5 rounded-2xl border bg-card p-6 sm:flex-row sm:items-center sm:p-8">
           <span className="grid size-12 shrink-0 place-items-center rounded-xl bg-clay-soft text-primary">

@@ -30,7 +30,7 @@ export default function BlogPostPage() {
 
   if (isError || !post) {
     return (
-      <PageHeader eyebrow="404" title={t('blogPage.notFound')}>
+      <PageHeader art="blog" eyebrow="404" title={t('blogPage.notFound')}>
         <Button asChild>
           <Link to="/blog">
             <ArrowLeft /> {t('blogPage.back')}
@@ -57,6 +57,7 @@ export default function BlogPostPage() {
   return (
     <>
       <PageHeader
+        art="blog"
         eyebrow={
           post.category
             ? localized(isTamil, post.category.name, post.category.nameTa)

@@ -58,6 +58,7 @@ export default function QuizPage() {
   return (
     <>
       <PageHeader
+        art="quiz"
         eyebrow={t('nav.toolsHeading')}
         title={t('pages.quiz')}
         description={t('quiz.lead')}

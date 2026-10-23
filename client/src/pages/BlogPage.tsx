@@ -34,6 +34,7 @@ export default function BlogPage() {
   return (
     <>
       <PageHeader
+        art="blog"
         eyebrow={t('blogPage.eyebrow')}
         title={t('blogPage.title')}
         description={t('blogPage.subtitle')}

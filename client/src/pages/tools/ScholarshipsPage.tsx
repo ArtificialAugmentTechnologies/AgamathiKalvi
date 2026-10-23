@@ -46,6 +46,7 @@ export default function ScholarshipsPage() {
   return (
     <>
       <PageHeader
+        art="scholarships"
         eyebrow={t('nav.toolsHeading')}
         title={t('pages.scholarships')}
         description={t('scholarshipsPage.lead')}

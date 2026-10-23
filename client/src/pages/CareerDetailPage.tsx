@@ -38,7 +38,7 @@ export default function CareerDetailPage() {
 
   if (isError || !career) {
     return (
-      <PageHeader eyebrow="404" title={t('careerDetail.notFound')}>
+      <PageHeader art="careerDetail" eyebrow="404" title={t('careerDetail.notFound')}>
         <Button asChild>
           <Link to="/careers">
             <ArrowLeft /> {t('careerDetail.back')}
@@ -51,6 +51,7 @@ export default function CareerDetailPage() {
   return (
     <>
       <PageHeader
+        art="careerDetail"
         eyebrow={`${localized(isTamil, career.stream.name, career.stream.nameTa)} · ${t(`careersHub.entry.${career.entry}`)}`}
         title={title}
         description={career.summary}

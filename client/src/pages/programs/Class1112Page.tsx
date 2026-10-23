@@ -35,6 +35,7 @@ export default function Class1112Page() {
   return (
     <>
       <PageHeader
+        art="class1112"
         eyebrow={t('programPages.class1112.eyebrow')}
         title={t('programPages.class1112.title')}
         description={t('programPages.class1112.lead')}
