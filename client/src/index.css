@@ -274,6 +274,24 @@
   }
 }
 
+/* Printing (choice list → "Save as PDF"): plain black on white, no backgrounds. */
+@media print {
+  :root,
+  .dark {
+    --background: #ffffff;
+    --foreground: #000000;
+    --card: #ffffff;
+    --muted-foreground: #333333;
+  }
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  * {
+    box-shadow: none !important;
+  }
+}
+
 @utility pb-safe {
   padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
 }

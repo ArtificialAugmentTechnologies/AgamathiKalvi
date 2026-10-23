@@ -9,6 +9,7 @@ const listQuery = z.object({
   stream: z.string().trim().max(40).optional(),
   entry: z.enum(['after10', 'after12']).optional(),
   q: z.string().trim().max(80).optional(),
+  cluster: z.string().trim().max(40).optional(),
 });
 
 const streamSelect = { select: { slug: true, name: true, nameTa: true, kind: true } } as const;
@@ -29,12 +30,13 @@ careersRouter.get('/streams', async (_req, res) => {
 });
 
 careersRouter.get('/', async (req, res) => {
-  const { stream, entry, q } = listQuery.parse(req.query);
+  const { stream, entry, q, cluster } = listQuery.parse(req.query);
   res.json(
     await prisma.career.findMany({
       where: {
         status: 'published',
         entry,
+        cluster,
         stream: stream ? { slug: stream } : undefined,
         OR: q
           ? [

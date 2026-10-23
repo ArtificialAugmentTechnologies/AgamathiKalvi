@@ -19,7 +19,9 @@ export function SiteLayout() {
       >
         {t('common.skipToContent')}
       </a>
-      <Navbar />
+      <div className="contents print:hidden">
+        <Navbar />
+      </div>
       {/* Enter-only transition keeps route changes snappy; MotionConfig disables it for reduced motion. */}
       <motion.main
         id="main"
@@ -33,10 +35,14 @@ export function SiteLayout() {
           <Outlet />
         </Suspense>
       </motion.main>
-      <Footer />
+      <div className="contents print:hidden">
+        <Footer />
+      </div>
       {/* Spacer so the mobile booking bar never covers the footer. */}
-      <div className="h-[4.75rem] bg-ink lg:hidden" aria-hidden />
-      <FloatingActions />
+      <div className="h-[4.75rem] bg-ink lg:hidden print:hidden" aria-hidden />
+      <div className="print:hidden">
+        <FloatingActions />
+      </div>
     </div>
   );
 }

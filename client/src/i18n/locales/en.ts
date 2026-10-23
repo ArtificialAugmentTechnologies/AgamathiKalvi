@@ -1,3 +1,4 @@
+import { enTools } from './en-tools';
 import { enPages } from './en-pages';
 // English strings. `ta.ts` must mirror this shape (enforced by the Translation type).
 export const en = {
@@ -339,6 +340,7 @@ export const en = {
     notFoundBody: 'The page you are looking for does not exist or has moved.',
   },
   ...enPages,
+  ...enTools,
 };
 
 type DeepString<T> = { [K in keyof T]: T[K] extends string ? string : DeepString<T[K]> };

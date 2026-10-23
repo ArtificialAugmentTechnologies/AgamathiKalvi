@@ -18,16 +18,16 @@ const MediaPage = lazy(() => import('@/pages/MediaPage'));
 const BlogPage = lazy(() => import('@/pages/BlogPage'));
 const BlogPostPage = lazy(() => import('@/pages/BlogPostPage'));
 const ContactPage = lazy(() => import('@/pages/ContactPage'));
+const ToolsPage = lazy(() => import('@/pages/tools/ToolsPage'));
+const CutoffCalculatorPage = lazy(() => import('@/pages/tools/CutoffCalculatorPage'));
+const PredictorPage = lazy(() => import('@/pages/tools/PredictorPage'));
+const ChoiceListPage = lazy(() => import('@/pages/tools/ChoiceListPage'));
+const QuizPage = lazy(() => import('@/pages/tools/QuizPage'));
+const ScholarshipsPage = lazy(() => import('@/pages/tools/ScholarshipsPage'));
 const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'));
 
 // Routes still to be built: [path, page-title key, phase that builds it].
 const upcoming: [string, TKey, string][] = [
-  ['/tools', 'pages.tools', '5'],
-  ['/tools/cutoff-calculator', 'pages.cutoff', '5'],
-  ['/tools/college-predictor', 'pages.predictor', '5'],
-  ['/tools/choice-list', 'pages.choiceList', '5'],
-  ['/tools/career-quiz', 'pages.quiz', '5'],
-  ['/tools/scholarships', 'pages.scholarships', '5'],
   ['/login', 'pages.login', '6'],
   ['/signup', 'pages.signup', '6'],
   ['/dashboard/*', 'pages.dashboard', '6'],
@@ -54,6 +54,12 @@ export function App() {
         <Route path="blog" element={<BlogPage />} />
         <Route path="blog/:slug" element={<BlogPostPage />} />
         <Route path="contact" element={<ContactPage />} />
+        <Route path="tools" element={<ToolsPage />} />
+        <Route path="tools/cutoff-calculator" element={<CutoffCalculatorPage />} />
+        <Route path="tools/college-predictor" element={<PredictorPage />} />
+        <Route path="tools/choice-list" element={<ChoiceListPage />} />
+        <Route path="tools/career-quiz" element={<QuizPage />} />
+        <Route path="tools/scholarships" element={<ScholarshipsPage />} />
         {upcoming.map(([path, titleKey, phase]) => (
           <Route
             key={path}

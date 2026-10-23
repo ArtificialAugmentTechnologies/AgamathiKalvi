@@ -7,6 +7,7 @@
 import { PrismaClient, type Community, type Prisma } from '@prisma/client';
 import bcrypt from 'bcryptjs';
 import { careers, scholarships, streams } from './seed/careers.js';
+import { quizQuestions } from './seed/quiz.js';
 import { branches, colleges, sampleCutoff, sampleYears } from './seed/colleges.js';
 import {
   blogCategory,
@@ -120,6 +121,17 @@ async function seedContent() {
   );
 }
 
+async function seedQuiz() {
+  await seedIfEmpty(
+    'quiz questions (draft copy)',
+    () => prisma.quizQuestion.count(),
+    () =>
+      prisma.quizQuestion.createMany({
+        data: quizQuestions.map((q, i) => ({ ...q, order: i + 1 })),
+      }),
+  );
+}
+
 async function seedCareers() {
   const streamIds = new Map<string, string>();
   for (const [i, s] of streams.entries()) {
@@ -204,6 +216,7 @@ async function main() {
   await seedSettings();
   await seedContent();
   await seedCareers();
+  await seedQuiz();
   await seedSampleColleges();
   console.log('Done.');
 }

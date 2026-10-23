@@ -1,0 +1,158 @@
+// English copy for the free tools (Phase 5).
+
+export const enTools = {
+  toolsHub: {
+    eyebrow: 'Free tools',
+    title: 'Plan your admission with free tools',
+    subtitle:
+      'Calculate your cutoff, see where you can get in, build your choice list, discover careers and find scholarships — all free.',
+    open: 'Open tool',
+  },
+
+  cutoffPage: {
+    lead: 'Enter your Class 12 marks to get your TNEA engineering cutoff out of 200 — then see which colleges fit it.',
+    breakdownTitle: 'How your cutoff adds up',
+    maths: 'Maths (full)',
+    physics: 'Physics ÷ 2',
+    chemistry: 'Chemistry ÷ 2',
+    howTitle: 'The TNEA cutoff formula',
+    howBody:
+      'TNEA ranks students by a cutoff out of 200: your Maths mark counts in full, and Physics and Chemistry count half each. All three are your Class 12 marks out of 100.',
+    exampleTitle: 'Example',
+    example: 'Maths 95, Physics 88, Chemistry 90 → 95 + 44 + 45 = 184.00',
+    note: 'Always confirm the formula on the official TNEA website each year in case it changes.',
+    share: 'Share on WhatsApp',
+    shareText:
+      'My TNEA cutoff is {{cutoff}}/200 — calculated with the free Agamathikalvi calculator: {{url}}',
+    predict: 'Find colleges for this cutoff',
+  },
+
+  predictor: {
+    lead: 'Enter your cutoff and community to see colleges grouped as safe, moderate and dream — based on the last three years of closing cutoffs.',
+    cutoff: 'Your cutoff (out of 200)',
+    cutoffHint: 'Don’t know it? Use the cutoff calculator.',
+    community: 'Community',
+    branches: 'Preferred branches',
+    districts: 'Preferred districts',
+    any: 'Any',
+    submit: 'Predict my colleges',
+    edit: 'Change details',
+    resultsFor: 'Cutoff {{cutoff}} · {{community}}',
+    groups: {
+      safe: { title: 'Safe', desc: 'Your cutoff is comfortably above last year’s closing cutoff.' },
+      moderate: { title: 'Moderate', desc: 'Close to last year’s closing cutoff — a fair chance.' },
+      dream: { title: 'Dream', desc: 'A little above your cutoff — worth a try in early rounds.' },
+    },
+    closing: 'Closing {{year}}',
+    above: '{{value}} above',
+    below: '{{value}} below',
+    trend: 'Closing cutoff, last 3 years',
+    add: 'Add to choice list',
+    added: 'In your list',
+    empty: 'No colleges in this group for your choices.',
+    emptyAll: 'No matches. Try more branches or districts, or check your cutoff.',
+    districtsTitle: 'Where your options are',
+    sample: 'Sample data',
+    disclaimer:
+      'This is an estimate based on previous years’ closing cutoffs. Actual cutoffs change every year and depend on seats, applications and counselling rounds. Use it to plan — and talk to a counsellor before locking choices.',
+    sampleNotice:
+      'These results use sample cutoff data for demonstration. Real TNEA cutoffs will be added by our team before launch.',
+    viewList: 'View choice list',
+  },
+
+  choiceList: {
+    lead: 'Search colleges and branches, add them in the order you prefer, and download your list for TNEA choice filling.',
+    searchLabel: 'Search colleges',
+    searchPlaceholder: 'College name, short name or district — e.g. PSG, Salem',
+    allBranches: 'All branches',
+    noResults: 'No colleges match your search.',
+    add: 'Add',
+    added: 'Added',
+    listTitle: 'Your choice list',
+    count: '{{count}} choices',
+    emptyList: 'Your list is empty. Add colleges from the search, or from the college predictor.',
+    moveUp: 'Move up',
+    moveDown: 'Move down',
+    remove: 'Remove',
+    clear: 'Clear list',
+    confirmClear: 'Remove all choices from your list?',
+    print: 'Download / print (PDF)',
+    savedNote: 'Saved on this device. Student accounts (coming soon) will keep it across devices.',
+    dragHint: 'Drag to reorder, or use the arrow buttons.',
+    printTitle: 'My TNEA choice list',
+    printedOn: 'Prepared on {{date}} with Agamathikalvi',
+    column: { order: 'No.', college: 'College', branch: 'Branch', district: 'District' },
+  },
+
+  quiz: {
+    lead: '15 quick questions about what you enjoy. We will suggest the career areas that suit you best.',
+    start: 'Start the quiz',
+    duration: 'About 3 minutes · free · no sign-up',
+    progress: 'Question {{current}} of {{total}}',
+    back: 'Previous question',
+    resultsTitle: 'Your top career matches',
+    match: '{{percent}}% match',
+    careersIn: 'Careers to explore',
+    noCareers: 'Talk to a counsellor to explore careers in this area.',
+    retake: 'Retake the quiz',
+    note: 'This quiz is a starting point, not a verdict. A counsellor can help you go deeper.',
+    clusters: {
+      technology: {
+        name: 'Technology & engineering',
+        desc: 'Building software, machines and the systems of the future.',
+      },
+      healthcare: {
+        name: 'Health & medicine',
+        desc: 'Caring for people and solving health problems.',
+      },
+      finance: { name: 'Commerce & finance', desc: 'Money, business, accounts and planning.' },
+      lawPublic: {
+        name: 'Law & public service',
+        desc: 'Justice, government, leadership and society.',
+      },
+      creative: { name: 'Design, media & arts', desc: 'Creating, designing and telling stories.' },
+      agriculture: {
+        name: 'Agriculture & environment',
+        desc: 'Food, farming, nature and sustainability.',
+      },
+      hospitality: {
+        name: 'Hospitality & travel',
+        desc: 'Hotels, tourism, food and great experiences.',
+      },
+    },
+  },
+
+  scholarshipsPage: {
+    lead: 'Tell us a little about yourself to see the scholarships and fee waivers you may be eligible for.',
+    classLevel: 'Class',
+    community: 'Community',
+    income: 'Annual family income',
+    gender: 'Gender',
+    stream: 'Stream',
+    any: 'Any',
+    female: 'Girl',
+    male: 'Boy',
+    incomeOptions: {
+      u1: 'Up to ₹1 lakh',
+      u2: 'Up to ₹2.5 lakh',
+      u3: 'Up to ₹3.5 lakh',
+      u4: 'Up to ₹4.5 lakh',
+      above: 'Above ₹4.5 lakh',
+    },
+    results: '{{count}} scholarships match',
+    empty: 'No scholarships match these details. Try changing a filter.',
+    amount: 'Benefit',
+    provider: 'Offered by',
+    official: 'Official website',
+    eligibility: {
+      classes: 'For',
+      communities: 'Communities',
+      incomeUpTo: 'Family income up to ₹{{amount}}',
+      girls: 'Girls only',
+      boys: 'Boys only',
+      allStudents: 'Open to all',
+    },
+    sampleNotice:
+      'Sample list — amounts and rules change often. Always check the official website before applying.',
+  },
+};

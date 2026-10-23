@@ -40,7 +40,7 @@ export const useStreams = () =>
     staleTime: LONG,
   });
 
-export type CareerFilters = { stream?: string; entry?: string; q?: string };
+export type CareerFilters = { stream?: string; entry?: string; q?: string; cluster?: string };
 
 export const useCareers = (filters: CareerFilters) => {
   const params = new URLSearchParams(

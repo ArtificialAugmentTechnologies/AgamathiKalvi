@@ -1,3 +1,4 @@
+import { taTools } from './ta-tools';
 import { taPages } from './ta-pages';
 // Tamil strings — first draft, to be reviewed by a fluent Tamil speaker before launch.
 import type { Translation } from './en';
@@ -348,4 +349,5 @@ export const ta: Translation = {
     notFoundBody: 'நீங்கள் தேடும் பக்கம் இல்லை அல்லது இடம் மாறியுள்ளது.',
   },
   ...taPages,
+  ...taTools,
 };
