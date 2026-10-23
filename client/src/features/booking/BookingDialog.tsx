@@ -21,6 +21,7 @@ import {
 } from '@/features/leads/leads';
 import { useWhatsAppNumber } from '@/hooks/useSettings';
 import { cn } from '@/lib/utils';
+import { useMe } from '@/features/auth/api';
 import type { BookingPreset } from './BookingProvider';
 
 const schema = z.object({
@@ -62,6 +63,7 @@ export default function BookingDialog({ open, onOpenChange, preset }: Props) {
   const [submitted, setSubmitted] = useState<FormValues | null>(null);
   const createLead = useCreateLead();
   const whatsapp = useWhatsAppNumber();
+  const { data: user } = useMe();
 
   const form = useForm<FormValues>({
     resolver: zodResolver(schema),
@@ -85,11 +87,18 @@ export default function BookingDialog({ open, onOpenChange, preset }: Props) {
   // Apply presets (e.g. cutoff from the hero calculator) every time the dialog opens.
   useEffect(() => {
     if (!open) return;
+    // Signed-in students don't retype what we already know.
+    if (user) {
+      if (!form.getValues('name')) setValue('name', user.name);
+      if (!form.getValues('phone') && user.phone)
+        setValue('phone', user.phone.startsWith('+91') ? user.phone.slice(3) : user.phone);
+      if (!form.getValues('email')) setValue('email', user.email);
+    }
     if (preset.cutoff !== undefined) setValue('cutoff', String(preset.cutoff));
     if (preset.interest && (INTEREST_OPTIONS as readonly string[]).includes(preset.interest)) {
       setValue('interest', preset.interest as FormValues['interest']);
     }
-  }, [open, preset, setValue]);
+  }, [open, preset, setValue, user, form]);
 
   const handleOpenChange = (next: boolean) => {
     onOpenChange(next);

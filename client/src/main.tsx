@@ -13,6 +13,7 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { App } from './App';
 import { AppToaster } from './components/layout/AppToaster';
+import { ChoiceListSync } from './features/auth/ChoiceListSync';
 import { BookingProvider } from './features/booking/BookingProvider';
 import { ThemeProvider } from './providers/ThemeProvider';
 
@@ -29,6 +30,7 @@ createRoot(document.getElementById('root')!).render(
           <BrowserRouter>
             <BookingProvider>
               <App />
+              <ChoiceListSync />
             </BookingProvider>
           </BrowserRouter>
           <AppToaster />

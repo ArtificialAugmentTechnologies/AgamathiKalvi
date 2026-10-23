@@ -1,0 +1,126 @@
+// English copy for accounts, the student dashboard and bookings (Phase 6).
+
+export const enAccount = {
+  auth: {
+    loginTitle: 'Welcome back',
+    loginLead: 'Log in to see your saved results, choice list and counselling bookings.',
+    signupTitle: 'Create your free account',
+    signupLead:
+      'Save your cutoff and predictions, keep your choice list on every device, and book counselling sessions.',
+    name: 'Full name',
+    email: 'Email',
+    password: 'Password',
+    passwordHint: 'At least 8 characters, with letters and numbers',
+    phone: 'Mobile number (optional)',
+    login: 'Log in',
+    signup: 'Create account',
+    working: 'Please wait…',
+    noAccount: "Don't have an account?",
+    haveAccount: 'Already have an account?',
+    showPassword: 'Show password',
+    hidePassword: 'Hide password',
+    perks: {
+      save: 'Save your tool results',
+      list: 'Your choice list on every device',
+      book: 'Book counselling sessions',
+    },
+    otpSoon: 'Login with mobile OTP is coming soon.',
+    welcome: 'Welcome, {{name}}!',
+    loggedOut: 'You have logged out.',
+    errors: {
+      invalid: 'Email or password is incorrect.',
+      exists: 'An account with this email already exists. Try logging in.',
+      password: 'Use at least 8 characters, with letters and numbers.',
+    },
+  },
+
+  account: {
+    dashboard: 'My dashboard',
+    logout: 'Log out',
+  },
+
+  save: {
+    button: 'Save to dashboard',
+    saved: 'Saved to your dashboard',
+    login: 'Log in to save',
+  },
+
+  dashboard: {
+    greeting: 'Hi {{name}}',
+    lead: 'Your saved results, choice list and counselling sessions — all in one place.',
+    tabs: {
+      overview: 'Overview',
+      profile: 'Profile',
+      choices: 'Choice list',
+      results: 'Saved results',
+      bookings: 'Counselling',
+      resources: 'Resources',
+    },
+    overview: {
+      choices: 'Choices in your list',
+      results: 'Saved results',
+      sessions: 'Upcoming sessions',
+      nextSession: 'Your next session',
+      noSession: 'No session booked yet.',
+      book: 'Book a session',
+      profileTitle: 'Complete your profile',
+      profileBody:
+        'Add your class, district, community and marks so counsellors can guide you better.',
+      profileCta: 'Complete profile',
+    },
+    profile: {
+      account: 'Account',
+      study: 'Studies',
+      classLevel: 'Class',
+      school: 'School',
+      district: 'District',
+      community: 'Community',
+      marks: 'Class 12 marks (out of 100)',
+      interests: 'Interests',
+      save: 'Save profile',
+      saved: 'Profile saved',
+    },
+    results: {
+      empty: 'Nothing saved yet. Use a tool and tap “Save to dashboard”.',
+      delete: 'Delete',
+      open: 'Open tool',
+      saved: 'Saved {{date}}',
+      tool: {
+        cutoff: 'Cutoff calculator',
+        predictor: 'College predictor',
+        quiz: 'Career quiz',
+        scholarship: 'Scholarship finder',
+      },
+    },
+    choices: {
+      synced: 'Synced to your account — open it on any device.',
+      open: 'Open choice list builder',
+    },
+    bookings: {
+      title: 'Book a counselling session',
+      lead: 'Pick a time that suits you. Sessions are 45 minutes with an Agamathi counsellor.',
+      remaining: '{{count}} left',
+      full: 'Full',
+      booked: 'Booked',
+      notes: 'Anything you would like to discuss? (optional)',
+      confirm: 'Book this slot',
+      success: 'Booked! Our team will call you to confirm.',
+      mine: 'Your sessions',
+      none: 'No sessions booked yet.',
+      cancel: 'Cancel',
+      confirmCancel: 'Cancel this session?',
+      cancelled: 'Session cancelled',
+      noSlots: 'No open slots right now — message us on WhatsApp and we will fit you in.',
+      status: {
+        pending: 'Pending confirmation',
+        confirmed: 'Confirmed',
+        completed: 'Completed',
+        cancelled: 'Cancelled',
+      },
+    },
+    resources: {
+      lead: 'Guides and research notes from our R&D team.',
+      download: 'Download PDF',
+    },
+  },
+};

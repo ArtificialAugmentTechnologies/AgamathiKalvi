@@ -1,3 +1,4 @@
+import { taAccount } from './ta-account';
 import { taTools } from './ta-tools';
 import { taPages } from './ta-pages';
 // Tamil strings — first draft, to be reviewed by a fluent Tamil speaker before launch.
@@ -350,4 +351,5 @@ export const ta: Translation = {
   },
   ...taPages,
   ...taTools,
+  ...taAccount,
 };

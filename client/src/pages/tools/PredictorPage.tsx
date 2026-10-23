@@ -10,6 +10,7 @@ import { Sparkline } from '@/components/common/Sparkline';
 import { Button } from '@/components/ui/button';
 import { Field, Input } from '@/components/ui/form-controls';
 import { TN_DISTRICTS } from '@/config/tamil-nadu';
+import { SaveResultButton } from '@/features/auth/SaveResultButton';
 import { useBranches, usePrediction, type PredictParams } from '@/features/tools/api';
 import { choiceList, useChoiceList } from '@/features/tools/choiceList';
 import { COMMUNITIES, type Chance, type Prediction } from '@/features/tools/types';
@@ -173,9 +174,21 @@ export default function PredictorPage() {
                     {t('predictor.sample')}
                   </span>
                 )}
+                {data && total > 0 && (
+                  <SaveResultButton
+                    tool="predictor"
+                    className="ml-auto h-9 px-4 text-sm"
+                    title={t('predictor.resultsFor', {
+                      cutoff: submitted.cutoff,
+                      community: submitted.community,
+                    })}
+                    input={{ ...submitted }}
+                    output={{ safe: counts[0], moderate: counts[1], dream: counts[2] }}
+                  />
+                )}
                 <a
                   href="#pd-cutoff"
-                  className="ml-auto inline-flex items-center gap-1 text-sm font-semibold text-primary lg:hidden"
+                  className="inline-flex items-center gap-1 text-sm font-semibold text-primary lg:hidden"
                 >
                   <Pencil className="size-3.5" aria-hidden /> {t('predictor.edit')}
                 </a>

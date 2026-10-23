@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/sheet';
 import { mainNav } from '@/config/navigation';
 import { useBookCounselling } from '@/features/booking/useBookCounselling';
+import { MobileAccountButtons } from './AccountButtons';
 import { LanguageToggle } from './LanguageToggle';
 import { Logo } from './Logo';
 import { ThemeToggle } from './ThemeToggle';
@@ -83,18 +84,7 @@ export function MobileNav() {
             <LanguageToggle />
             <ThemeToggle />
           </div>
-          <div className="grid grid-cols-2 gap-2">
-            <Button variant="outline" asChild>
-              <Link to="/login" onClick={close}>
-                {t('nav.login')}
-              </Link>
-            </Button>
-            <Button variant="secondary" asChild>
-              <Link to="/signup" onClick={close}>
-                {t('nav.signup')}
-              </Link>
-            </Button>
-          </div>
+          <MobileAccountButtons onNavigate={close} />
           <Button
             className="w-full"
             size="lg"

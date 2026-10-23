@@ -1,3 +1,4 @@
+import { enAccount } from './en-account';
 import { enTools } from './en-tools';
 import { enPages } from './en-pages';
 // English strings. `ta.ts` must mirror this shape (enforced by the Translation type).
@@ -341,6 +342,7 @@ export const en = {
   },
   ...enPages,
   ...enTools,
+  ...enAccount,
 };
 
 type DeepString<T> = { [K in keyof T]: T[K] extends string ? string : DeepString<T[K]> };

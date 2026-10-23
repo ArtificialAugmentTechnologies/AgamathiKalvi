@@ -8,6 +8,7 @@ import { PageHeader } from '@/components/common/PageHeader';
 import { Button } from '@/components/ui/button';
 import { interestForCluster } from '@/features/careers/careers';
 import { useCareers } from '@/features/content/api';
+import { SaveResultButton } from '@/features/auth/SaveResultButton';
 import { useQuizQuestions, useSubmitQuiz } from '@/features/tools/api';
 import type { ClusterScore } from '@/features/tools/types';
 import { usePageMeta } from '@/hooks/usePageMeta';
@@ -185,9 +186,20 @@ function Results({ top, onRetake }: { top: ClusterScore[]; onRetake: () => void 
         ))}
       </ol>
       <p className="mt-6 text-sm text-muted-foreground">{t('quiz.note')}</p>
-      <Button variant="outline" className="mt-4" onClick={onRetake}>
-        <RotateCcw /> {t('quiz.retake')}
-      </Button>
+      <div className="mt-4 flex flex-wrap gap-3">
+        <SaveResultButton
+          tool="quiz"
+          variant="default"
+          title={top
+            .map((c) => `${t(`quiz.clusters.${clusterKey(c.cluster)}.name`)} ${c.percent}%`)
+            .join(' · ')}
+          input={{}}
+          output={{ top }}
+        />
+        <Button variant="outline" size="lg" onClick={onRetake}>
+          <RotateCcw /> {t('quiz.retake')}
+        </Button>
+      </div>
     </div>
   );
 }

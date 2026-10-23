@@ -8,6 +8,7 @@ import { PrismaClient, type Community, type Prisma } from '@prisma/client';
 import bcrypt from 'bcryptjs';
 import { careers, scholarships, streams } from './seed/careers.js';
 import { quizQuestions } from './seed/quiz.js';
+import { upcomingSlots } from './seed/slots.js';
 import { branches, colleges, sampleCutoff, sampleYears } from './seed/colleges.js';
 import {
   blogCategory,
@@ -132,6 +133,18 @@ async function seedQuiz() {
   );
 }
 
+/** Sample slots only when none are upcoming — never touches real or booked slots. */
+async function seedSlots() {
+  const upcoming = await prisma.counsellingSlot.count({ where: { startsAt: { gt: new Date() } } });
+  if (upcoming > 0) {
+    console.log('  - counselling slots: upcoming slots exist, skipped');
+    return;
+  }
+  const slots = upcomingSlots();
+  await prisma.counsellingSlot.createMany({ data: slots });
+  console.log(`  ✓ ${slots.length} sample counselling slots (next 14 days)`);
+}
+
 async function seedCareers() {
   const streamIds = new Map<string, string>();
   for (const [i, s] of streams.entries()) {
@@ -217,6 +230,7 @@ async function main() {
   await seedContent();
   await seedCareers();
   await seedQuiz();
+  await seedSlots();
   await seedSampleColleges();
   console.log('Done.');
 }

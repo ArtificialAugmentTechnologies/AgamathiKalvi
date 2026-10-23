@@ -2,6 +2,7 @@ import { lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { SiteLayout } from '@/components/layout/SiteLayout';
 import type { TKey } from '@/config/navigation';
+import { RequireAuth } from '@/features/auth/RequireAuth';
 import { ComingSoonPage } from '@/pages/ComingSoonPage';
 
 // Every page is its own chunk, downloaded on first visit.
@@ -24,13 +25,13 @@ const PredictorPage = lazy(() => import('@/pages/tools/PredictorPage'));
 const ChoiceListPage = lazy(() => import('@/pages/tools/ChoiceListPage'));
 const QuizPage = lazy(() => import('@/pages/tools/QuizPage'));
 const ScholarshipsPage = lazy(() => import('@/pages/tools/ScholarshipsPage'));
+const LoginPage = lazy(() => import('@/pages/account/LoginPage'));
+const SignupPage = lazy(() => import('@/pages/account/SignupPage'));
+const DashboardPage = lazy(() => import('@/pages/account/DashboardPage'));
 const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'));
 
 // Routes still to be built: [path, page-title key, phase that builds it].
 const upcoming: [string, TKey, string][] = [
-  ['/login', 'pages.login', '6'],
-  ['/signup', 'pages.signup', '6'],
-  ['/dashboard/*', 'pages.dashboard', '6'],
   ['/admin/*', 'pages.admin', '7'],
   ['/privacy', 'pages.privacy', '8'],
   ['/terms', 'pages.terms', '8'],
@@ -60,6 +61,16 @@ export function App() {
         <Route path="tools/choice-list" element={<ChoiceListPage />} />
         <Route path="tools/career-quiz" element={<QuizPage />} />
         <Route path="tools/scholarships" element={<ScholarshipsPage />} />
+        <Route path="login" element={<LoginPage />} />
+        <Route path="signup" element={<SignupPage />} />
+        <Route
+          path="dashboard/:tab?"
+          element={
+            <RequireAuth>
+              <DashboardPage />
+            </RequireAuth>
+          }
+        />
         {upcoming.map(([path, titleKey, phase]) => (
           <Route
             key={path}

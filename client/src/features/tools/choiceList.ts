@@ -63,6 +63,12 @@ export const choiceList = {
     write(list);
   },
   clear: () => write([]),
+  /** Replace the whole list (used when syncing with the student's account). */
+  replace: (next: Choice[]) =>
+    write(next.map(({ id, college, branch }) => ({ id, college, branch }))),
+  /** Current list without subscribing (for one-off reads). */
+  get: () => read(),
+  subscribe,
 };
 
 const EMPTY: Choice[] = [];

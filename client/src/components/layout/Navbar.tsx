@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { AccountButtons } from './AccountButtons';
 import { DesktopNav } from './DesktopNav';
 import { LanguageToggle } from './LanguageToggle';
 import { Logo } from './Logo';
@@ -10,7 +8,6 @@ import { MobileNav } from './MobileNav';
 import { ThemeToggle } from './ThemeToggle';
 
 export function Navbar() {
-  const { t } = useTranslation();
   const scrolled = useScrolled(8);
 
   return (
@@ -30,12 +27,7 @@ export function Navbar() {
         <div className="ml-auto flex items-center gap-1.5 lg:ml-0">
           <LanguageToggle className="hidden sm:inline-flex" />
           <ThemeToggle className="hidden sm:inline-flex" />
-          <Button variant="ghost" size="sm" asChild className="hidden lg:inline-flex">
-            <Link to="/login">{t('nav.login')}</Link>
-          </Button>
-          <Button size="sm" asChild className="hidden xl:inline-flex">
-            <Link to="/signup">{t('nav.signup')}</Link>
-          </Button>
+          <AccountButtons />
           <MobileNav />
         </div>
       </div>

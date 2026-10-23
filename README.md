@@ -68,22 +68,40 @@ The seed creates an admin login from `SEED_ADMIN_EMAIL` and `SEED_ADMIN_PASSWORD
 
 ## API
 
-| Endpoint                        | Returns                                                                                      |
-| ------------------------------- | -------------------------------------------------------------------------------------------- |
-| `GET /api/health`               | `{ status, db }` (503 if the database is down)                                               |
-| `GET /api/content/settings`     | Stats, contact details, social links                                                         |
-| `GET /api/content/testimonials` | Published testimonials                                                                       |
-| `GET /api/content/team`         | Team members                                                                                 |
-| `GET /api/content/faqs`         | Published FAQs                                                                               |
-| `GET /api/content/partners`     | Partner college logos                                                                        |
-| `GET /api/content/blog`         | Published blog post cards                                                                    |
-| `GET /api/content/blog/:slug`   | One published article (404 if missing)                                                       |
-| `GET /api/content/media`        | Gallery items (`?type=photo&year=2022`)                                                      |
-| `GET /api/careers`              | Careers (`?stream=science&entry=after12&q=…`)                                                |
-| `GET /api/careers/:slug`        | One career with full details                                                                 |
-| `GET /api/careers/streams`      | Streams with career counts                                                                   |
-| `POST /api/leads`               | Save a school invite, contact or counselling lead                                            |
-| `GET /api/tools/predict`        | Safe / moderate / dream colleges (`?cutoff=184&community=BC&branches=CS,EC&districts=Salem`) |     | `GET /api/tools/college-options` | College + branch search for the choice list (`?q=psg&branch=CS`) |     | `GET /api/tools/branches` | Engineering branches |     | `GET /api/scholarships` | Eligible scholarships (`?classLevel&community&income&gender&stream`) |     | `GET /api/quiz/questions` | Career quiz questions (scoring weights stay on the server) |     | `POST /api/quiz/results` | Score a quiz: `{ answers: number[] }` → top career clusters |
+| Endpoint                             | Returns                                                                                      |
+| ------------------------------------ | -------------------------------------------------------------------------------------------- |
+| `GET /api/health`                    | `{ status, db }` (503 if the database is down)                                               |
+| `GET /api/content/settings`          | Stats, contact details, social links                                                         |
+| `GET /api/content/testimonials`      | Published testimonials                                                                       |
+| `GET /api/content/team`              | Team members                                                                                 |
+| `GET /api/content/faqs`              | Published FAQs                                                                               |
+| `GET /api/content/partners`          | Partner college logos                                                                        |
+| `GET /api/content/blog`              | Published blog post cards                                                                    |
+| `GET /api/content/blog/:slug`        | One published article (404 if missing)                                                       |
+| `GET /api/content/media`             | Gallery items (`?type=photo&year=2022`)                                                      |
+| `GET /api/careers`                   | Careers (`?stream=science&entry=after12&q=…`)                                                |
+| `GET /api/careers/:slug`             | One career with full details                                                                 |
+| `GET /api/careers/streams`           | Streams with career counts                                                                   |
+| `POST /api/leads`                    | Save a school invite, contact or counselling lead                                            |
+| `GET /api/tools/predict`             | Safe / moderate / dream colleges (`?cutoff=184&community=BC&branches=CS,EC&districts=Salem`) |
+| `GET /api/tools/college-options`     | College + branch search for the choice list (`?q=psg&branch=CS`)                             |
+| `GET /api/tools/branches`            | Engineering branches                                                                         |
+| `GET /api/scholarships`              | Eligible scholarships (`?classLevel&community&income&gender&stream`)                         |
+| `GET /api/quiz/questions`            | Career quiz questions (scoring weights stay on the server)                                   |
+| `POST /api/quiz/results`             | Score a quiz: `{ answers: number[] }` → top career clusters                                  |
+| `POST /api/auth/signup`              | Create a student account and set the session cookie                                          |
+| `POST /api/auth/login`               | Log in with email and password (sets the session cookie)                                     |
+| `POST /api/auth/logout`              | Clear the session cookie                                                                     |
+| `GET /api/auth/me`                   | `{ user }` for the current session, or `{ user: null }`                                      |
+| `GET` / `PUT /api/me/profile` 🔒     | Student profile (class, district, community, marks, interests)                               |
+| `GET` / `POST /api/me/results` 🔒    | Saved tool results; `DELETE /api/me/results/:id` removes one                                 |
+| `GET` / `PUT /api/me/choice-list` 🔒 | The synced choice list (PUT replaces the items in order)                                     |
+| `GET /api/me/bookings` 🔒            | The student's counselling bookings                                                           |
+| `GET /api/slots`                     | Open counselling slots for the next 30 days, with seats left                                 |
+| `POST /api/bookings` 🔒              | Book a slot: `{ slotId, notes? }`                                                            |
+| `POST /api/bookings/:id/cancel` 🔒   | Cancel your own booking                                                                      |
+
+🔒 needs a logged-in session. Write requests with a body must be sent as `application/json` (a simple CSRF guard), and auth endpoints allow 10 attempts per 15 minutes.
 
 ## Troubleshooting
 

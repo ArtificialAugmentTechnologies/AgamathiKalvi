@@ -7,6 +7,7 @@ import { CallToAction } from '@/components/common/CallToAction';
 import { PageHeader } from '@/components/common/PageHeader';
 import { Reveal } from '@/components/common/Reveal';
 import { Button } from '@/components/ui/button';
+import { SaveResultButton } from '@/features/auth/SaveResultButton';
 import { computeTneaCutoff, isValidMark } from '@/features/tools/cutoff';
 import { usePageMeta } from '@/hooks/usePageMeta';
 import { cn } from '@/lib/utils';
@@ -119,6 +120,14 @@ export default function CutoffCalculatorPage() {
                 {t('cutoffPage.predict')} <ArrowRight />
               </Link>
             </Button>
+            {cutoff !== null && (
+              <SaveResultButton
+                tool="cutoff"
+                title={`${t('home.quick.result')}: ${cutoff.toFixed(2)} / 200`}
+                input={{ maths: nums[0], physics: nums[1], chemistry: nums[2] }}
+                output={{ cutoff }}
+              />
+            )}
             {shareHref && (
               <Button asChild size="lg" variant="whatsapp">
                 <a href={shareHref} target="_blank" rel="noopener noreferrer">
