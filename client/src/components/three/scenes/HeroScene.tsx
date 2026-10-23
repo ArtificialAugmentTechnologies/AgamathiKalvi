@@ -15,7 +15,7 @@ export default function HeroScene({ inputs, quality, reducedMotion }: SceneProps
   const compact = size.width < 1024;
 
   // Positions are fractions of the visible area so the layout tracks the screen shape.
-  // Desktop: around the cutoff card (right column). Phones: tucked into the corners.
+  // Desktop: centred in the right half of the hero. Phones: tucked into the corners.
   const layout = useMemo(() => {
     const { width: w, height: h } = viewport;
     const scale = compact ? Math.min(0.62, w / 5.5) : Math.min(1, w / 10);
@@ -26,9 +26,9 @@ export default function HeroScene({ inputs, quality, reducedMotion }: SceneProps
           [w * 0.34, -h * 0.05, -2],
         ]
       : [
-          [w * 0.36, h * 0.3, -1.6],
-          [w * 0.06, h * 0.36, 0],
-          [w * 0.03, -h * 0.1, 0.4],
+          [w * 0.25, h * 0.04, -0.8],
+          [w * 0.1, h * 0.31, 0.5],
+          [w * 0.29, -h * 0.27, 0.6],
         ];
     return { scale, positions };
   }, [viewport, compact]);
@@ -66,7 +66,7 @@ export default function HeroScene({ inputs, quality, reducedMotion }: SceneProps
       <group ref={rig}>
         <group
           ref={(g) => void (items.current[0] = g)}
-          scale={layout.scale * (compact ? 1.1 : 0.85)}
+          scale={layout.scale * (compact ? 1.1 : 1.2)}
         >
           <Float {...float}>
             <Globe spin={!reducedMotion} />
@@ -74,7 +74,7 @@ export default function HeroScene({ inputs, quality, reducedMotion }: SceneProps
         </group>
         <group
           ref={(g) => void (items.current[1] = g)}
-          scale={layout.scale * (compact ? 0.7 : 0.62)}
+          scale={layout.scale * (compact ? 0.7 : 0.7)}
         >
           <Float {...float} speed={float.speed * 1.2}>
             <GradCap />
@@ -82,7 +82,7 @@ export default function HeroScene({ inputs, quality, reducedMotion }: SceneProps
         </group>
         <group
           ref={(g) => void (items.current[2] = g)}
-          scale={layout.scale * (compact ? 0.8 : 0.52)}
+          scale={layout.scale * (compact ? 0.8 : 0.6)}
         >
           <Float {...float} speed={float.speed * 0.9}>
             <OpenBook />

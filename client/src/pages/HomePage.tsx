@@ -2,7 +2,7 @@ import { CallToAction } from '@/components/common/CallToAction';
 import { AppComingSoon } from '@/features/home/AppComingSoon';
 import { BlogSection } from '@/features/home/BlogSection';
 import { FaqSection } from '@/features/home/FaqSection';
-import { HeroSection } from '@/features/home/HeroSection';
+import { HeroBanner, HeroSection } from '@/features/home/HeroSection';
 import { HowItWorks } from '@/features/home/HowItWorks';
 import { InviteSchoolSection } from '@/features/home/InviteSchoolSection';
 import { PartnersMarquee } from '@/features/home/PartnersMarquee';
@@ -19,6 +19,7 @@ export default function HomePage() {
   return (
     <>
       <HeroSection />
+      <HeroBanner />
       <StatsBar />
       <HowItWorks />
       <ToolsSection />

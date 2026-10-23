@@ -79,6 +79,14 @@ export const en = {
     titleLine2: 'with us.',
     subtitle: 'We help you spread your wings by designing a perfect career path.',
     studentsGuided: '1 lakh+ students guided since 2012',
+    scrollCue: 'Scroll to explore',
+    paths: { title: 'Popular paths', design: 'Design' },
+    badges: {
+      students: 'Students guided',
+      careers: 'Career choices',
+      freeValue: 'Free',
+      counselling: '1-to-1 counselling',
+    },
     bannerAlt:
       'Illustrated characters showing careers through the ages — from farmer to teacher, scientist, entrepreneur and astronaut',
     quick: {
