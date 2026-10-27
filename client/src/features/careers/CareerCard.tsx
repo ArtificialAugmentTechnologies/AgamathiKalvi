@@ -1,13 +1,14 @@
 import { ArrowRight, IndianRupee } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { useLanguage } from '@/i18n';
 import { Link } from 'react-router-dom';
 import { TiltCard } from '@/components/common/TiltCard';
 import { formatInrShort, localized } from '@/lib/format';
 import type { CareerSummary } from '@/types/content';
 
 export function CareerCard({ career }: { career: CareerSummary }) {
-  const { t, i18n } = useTranslation();
-  const isTamil = i18n.resolvedLanguage === 'ta';
+  const { t } = useTranslation();
+  const lang = useLanguage();
 
   return (
     <TiltCard max={7}>
@@ -17,14 +18,14 @@ export function CareerCard({ career }: { career: CareerSummary }) {
       >
         <div className="flex flex-wrap gap-2 text-xs font-semibold">
           <span className="rounded-full bg-clay-soft px-2.5 py-1 text-primary">
-            {localized(isTamil, career.stream.name, career.stream.nameTa)}
+            {localized(lang, career.stream.name, career.stream.nameTa, career.stream.nameHi)}
           </span>
           <span className="rounded-full bg-sky-soft px-2.5 py-1 text-sky">
             {t(`careersHub.entry.${career.entry}`)}
           </span>
         </div>
         <h3 className="mt-4 text-xl leading-snug font-semibold">
-          {localized(isTamil, career.title, career.titleTa)}
+          {localized(lang, career.title, career.titleTa, career.titleHi)}
         </h3>
         <p className="mt-2 flex-1 text-sm text-muted-foreground">{career.summary}</p>
         <div className="mt-5 flex items-center justify-between gap-3 border-t pt-4 text-sm">

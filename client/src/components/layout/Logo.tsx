@@ -25,17 +25,17 @@ export function Logo({ tone = 'auto', className }: LogoProps) {
         <img
           src="/images/brand/logo.png"
           alt={alt}
-          width={180}
-          height={34}
-          className="h-8 w-auto dark:hidden"
+          width={738}
+          height={128}
+          className="h-9 w-auto lg:h-10 dark:hidden"
         />
       )}
       <img
         src="/images/brand/logo-light.png"
         alt={alt}
-        width={221}
-        height={41}
-        className={cn('h-8 w-auto', tone === 'auto' && 'hidden dark:block')}
+        width={738}
+        height={128}
+        className={cn('h-9 w-auto lg:h-10', tone === 'auto' && 'hidden dark:block')}
       />
     </Link>
   );

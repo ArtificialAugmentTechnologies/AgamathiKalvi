@@ -18,6 +18,10 @@ export const en = {
     contact: 'Contact',
     login: 'Login',
     signup: 'Sign up',
+    studentLogin: 'Student\nLogin',
+    // "\n" splits the navbar buttons over two lines; the mobile menu shows them on one.
+    freeGuidance: 'Get Free\nCareer Guidance',
+    exploreCourses: 'Explore\nCourses',
     menu: 'Open menu',
     close: 'Close menu',
     mainNav: 'Main navigation',
@@ -25,7 +29,10 @@ export const en = {
     toolsHeading: 'Free tools',
     careerItems: {
       explore: { title: 'Explore careers', desc: '200+ careers by stream and class' },
-      careerTuner: { title: 'Career Tuner 2.0', desc: 'Our career guidance video playlist' },
+      careerTuner: {
+        title: 'AI-Powered Career Discovery Platform',
+        desc: 'Our career guidance video playlist',
+      },
       studentpreneur: {
         title: 'Students Level Entrepreneur',
         desc: 'Part-time work and on-field training',
@@ -53,14 +60,15 @@ export const en = {
     backHome: 'Back to home',
     skipToContent: 'Skip to content',
     language: 'Language',
-    switchToTamil: 'Switch to Tamil',
-    switchToEnglish: 'Switch to English',
+    languages: 'Languages',
     theme: { toLight: 'Switch to light theme', toDark: 'Switch to dark theme' },
     whatsapp: {
       label: 'Chat with us on WhatsApp',
       message: 'Hi Agamathi, I would like career guidance for my child / myself.',
     },
     sampleData: 'Sample data',
+    notifications: 'Notifications',
+    playVideo: 'Play video',
   },
   footer: {
     about:
@@ -74,23 +82,26 @@ export const en = {
     privacy: 'Privacy',
     terms: 'Terms',
     disclaimer: 'Disclaimer',
+    legal: 'Legal',
   },
   home: {
     eyebrow: "Tamil Nadu's No.1 Educational Helpline",
-    titleLine1: 'Choose your dream',
-    titleLine2: 'with us.',
-    subtitle: 'We help you spread your wings by designing a perfect career path.',
+    titleLine1: 'Your Dream Career',
+    titleLine2: 'Starts Here.',
+    subtitle:
+      'Explore the right courses, discover the best colleges, and get expert guidance to shape your future.',
     studentsGuided: '1 lakh+ students guided since 2012',
     scrollCue: 'Scroll to explore',
     paths: { title: 'Popular paths', design: 'Design' },
     badges: {
       students: 'Students guided',
       careers: 'Career choices',
+      studentsValue: '1 Lakh+',
       freeValue: 'Free',
       counselling: '1-to-1 counselling',
     },
     bannerAlt:
-      'Illustrated characters showing careers through the ages — from farmer to teacher, scientist, entrepreneur and astronaut',
+      'Illustrated students growing into graduates, doctors, engineers, scientists and IT professionals',
     quick: {
       title: 'Your TNEA cutoff in seconds',
       subtitle: 'Enter your Class 12 marks out of 100',
@@ -198,6 +209,8 @@ export const en = {
       subtitle: 'Hear from students we guided across Tamil Nadu.',
       prev: 'Previous testimonials',
       next: 'Next testimonials',
+      clipsTitle: 'Watch their stories',
+      clipTitle: 'Student testimonial video {{n}}',
     },
     invite: {
       eyebrow: 'For schools',
@@ -307,6 +320,8 @@ export const en = {
       'Our counsellor will call you within one working day. Want a faster reply? Send your details on WhatsApp.',
     sendWhatsapp: 'Send on WhatsApp',
     done: 'Done',
+    toLogin: 'Continue to Student Login',
+    toLoginCountdown: 'Taking you to the Student Portal login in {{count}}s…',
     close: 'Close',
     waMessage:
       'Hi Agamathi, I just booked free counselling.\nName: {{name}}\nClass: {{classLevel}}\nDistrict: {{district}}\nInterest: {{interest}}\nPreferred: {{mode}}, {{time}}',
@@ -315,7 +330,7 @@ export const en = {
     about: 'About Us',
     careers: 'Career Guidance',
     careerDetail: 'Career details',
-    careerTuner: 'Career Tuner 2.0',
+    careerTuner: 'AI-Powered Career Discovery Platform',
     studentpreneur: 'Students Level Entrepreneur',
     abroad: 'Abroad Studies',
     class1112: 'For Class 11 & 12',

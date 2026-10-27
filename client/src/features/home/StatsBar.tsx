@@ -1,5 +1,7 @@
 import { Briefcase, GraduationCap, HandCoins, School } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { useLanguage } from '@/i18n';
+import { localized } from '@/lib/format';
 import { AnimatedCounter } from '@/components/common/AnimatedCounter';
 import { useSettings } from '@/hooks/useSettings';
 
@@ -11,10 +13,10 @@ const ICONS: Record<string, typeof Briefcase> = {
 };
 
 export function StatsBar() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const { data } = useSettings();
   const stats = data?.stats_home ?? [];
-  const isTamil = i18n.resolvedLanguage === 'ta';
+  const lang = useLanguage();
 
   return (
     <section
@@ -34,13 +36,17 @@ export function StatsBar() {
               <Icon className="mb-1 size-5 text-primary" aria-hidden />
               <span className="font-serif text-3xl font-semibold sm:text-4xl">
                 {stats.length ? (
-                  <AnimatedCounter value={s.value} suffix={s.suffix} display={s.display} />
+                  <AnimatedCounter
+                    value={s.value}
+                    suffix={s.suffix}
+                    display={s.display && localized(lang, s.display, s.displayTa, s.displayHi)}
+                  />
                 ) : (
                   '—'
                 )}
               </span>
               <span className="text-sm text-muted-foreground">
-                {isTamil && s.labelTa ? s.labelTa : s.label}
+                {localized(lang, s.label, s.labelTa, s.labelHi)}
               </span>
             </li>
           );
@@ -56,6 +62,9 @@ const placeholders = ['careers', 'scholarships', 'jobs', 'colleges'].map((key) =
   value: 0,
   label: ' ',
   labelTa: undefined as string | undefined,
+  labelHi: undefined as string | undefined,
   suffix: '',
   display: undefined as string | undefined,
+  displayTa: undefined as string | undefined,
+  displayHi: undefined as string | undefined,
 }));

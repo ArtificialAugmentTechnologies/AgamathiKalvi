@@ -111,6 +111,14 @@ export const enAccount = {
       confirmCancel: 'Cancel this session?',
       cancelled: 'Session cancelled',
       noSlots: 'No open slots right now — message us on WhatsApp and we will fit you in.',
+      conflicts: {
+        started: 'This slot has already started.',
+        duplicate: 'You have already booked this slot.',
+        full: 'This slot is full — please pick another time.',
+        changed: 'This slot just changed — please try again.',
+        noCancel: 'This booking can no longer be cancelled.',
+        sessionStarted: 'This session has already started.',
+      },
       status: {
         pending: 'Pending confirmation',
         confirmed: 'Confirmed',

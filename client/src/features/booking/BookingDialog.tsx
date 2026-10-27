@@ -1,8 +1,9 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { CalendarCheck, Check, Clock, MapPin, Phone, Video } from 'lucide-react';
+import { CalendarCheck, Check, Clock, LogIn, MapPin, Phone, Video } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useForm, type FieldPath, type UseFormRegisterReturn } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 import { WhatsAppIcon } from '@/components/icons/BrandIcons';
 import { Button } from '@/components/ui/button';
@@ -55,6 +56,8 @@ const MODES = [
 ] as const;
 const TIMES = ['morning', 'afternoon', 'evening'] as const;
 
+const LOGIN_REDIRECT_SECONDS = 6;
+
 type Props = { open: boolean; onOpenChange: (open: boolean) => void; preset: BookingPreset };
 
 export default function BookingDialog({ open, onOpenChange, preset }: Props) {
@@ -64,6 +67,9 @@ export default function BookingDialog({ open, onOpenChange, preset }: Props) {
   const createLead = useCreateLead();
   const whatsapp = useWhatsAppNumber();
   const { data: user } = useMe();
+  const navigate = useNavigate();
+  const toLogin = !!preset.thenLogin && !user;
+  const [countdown, setCountdown] = useState(LOGIN_REDIRECT_SECONDS);
 
   const form = useForm<FormValues>({
     resolver: zodResolver(schema),
@@ -112,6 +118,24 @@ export default function BookingDialog({ open, onOpenChange, preset }: Props) {
       }, 300);
     }
   };
+
+  const goToLogin = () => {
+    handleOpenChange(false);
+    navigate('/login');
+  };
+
+  // Free-guidance flow: count down on the success screen, then open the Student Login.
+  useEffect(() => {
+    if (!submitted || !toLogin || !open) return;
+    setCountdown(LOGIN_REDIRECT_SECONDS);
+    const id = setInterval(() => setCountdown((c) => c - 1), 1000);
+    return () => clearInterval(id);
+  }, [submitted, toLogin, open]);
+
+  useEffect(() => {
+    if (submitted && toLogin && open && countdown <= 0) goToLogin();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [countdown]);
 
   const next = async () => {
     if (await trigger(STEPS[step]!.fields)) setStep((s) => s + 1);
@@ -170,10 +194,22 @@ export default function BookingDialog({ open, onOpenChange, preset }: Props) {
                   {t('booking.sendWhatsapp')}
                 </a>
               </Button>
-              <Button variant="outline" size="lg" onClick={() => handleOpenChange(false)}>
-                {t('booking.done')}
-              </Button>
+              {toLogin ? (
+                <Button size="lg" onClick={goToLogin}>
+                  <LogIn />
+                  {t('booking.toLogin')}
+                </Button>
+              ) : (
+                <Button variant="outline" size="lg" onClick={() => handleOpenChange(false)}>
+                  {t('booking.done')}
+                </Button>
+              )}
             </div>
+            {toLogin && (
+              <p className="mt-4 text-xs text-muted-foreground" aria-live="polite">
+                {t('booking.toLoginCountdown', { count: Math.max(countdown, 0) })}
+              </p>
+            )}
           </div>
         ) : (
           <form onSubmit={onSubmit} noValidate>

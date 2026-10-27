@@ -112,7 +112,7 @@ export function Footer() {
       <div className="border-t border-ink-border">
         <div className="container-page flex flex-col gap-3 py-5 text-xs text-ink-muted sm:flex-row sm:items-center sm:justify-between">
           <p>{t('footer.rights', { year })}</p>
-          <nav aria-label="Legal" className="flex gap-5">
+          <nav aria-label={t('footer.legal')} className="flex gap-5">
             <Link to="/privacy" className={linkClass}>
               {t('footer.privacy')}
             </Link>

@@ -1,14 +1,21 @@
-import { LayoutDashboard, LogOut } from 'lucide-react';
+import { LayoutDashboard, LogIn, LogOut } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { useLogout, useMe } from '@/features/auth/api';
+import { useBookCounselling } from '@/features/booking/useBookCounselling';
+import { cn } from '@/lib/utils';
 
-/** Navbar (desktop): Login / Sign up when signed out; avatar + name linking to the dashboard when signed in. */
+/** The CTA labels carry a "\n": two short lines keep the buttons narrow in the navbar. */
+const TWO_LINE =
+  'h-11 rounded-2xl px-3 py-1 text-center text-[13px] leading-tight whitespace-pre-line';
+
+/** Navbar (desktop): explore-courses, student-login and free-guidance CTAs when signed out; avatar + name linking to the dashboard when signed in. */
 export function AccountButtons() {
   const { t } = useTranslation();
   const { data: user, isPending } = useMe();
+  const book = useBookCounselling();
 
   if (isPending) return <span className="hidden h-9 w-24 lg:inline-block" aria-hidden />;
 
@@ -32,17 +39,41 @@ export function AccountButtons() {
 
   return (
     <>
-      <Button variant="ghost" size="sm" asChild className="hidden lg:inline-flex">
-        <Link to="/login">{t('nav.login')}</Link>
+      {/* data-collapse: the navbar drops these, Explore first, when they don't fit on one line. */}
+      <Button
+        variant="outline"
+        size="sm"
+        asChild
+        data-collapse="2"
+        className={cn(TWO_LINE, 'hidden md:inline-flex data-collapsed:hidden!')}
+      >
+        <Link to="/careers">{t('nav.exploreCourses')}</Link>
       </Button>
-      <Button size="sm" asChild className="hidden xl:inline-flex">
-        <Link to="/signup">{t('nav.signup')}</Link>
+      <Button
+        variant="ghost"
+        size="sm"
+        asChild
+        data-collapse="2.5"
+        className={cn(TWO_LINE, 'hidden gap-1.5 px-2 md:inline-flex data-collapsed:hidden!')}
+      >
+        <Link to="/login">
+          <LogIn aria-hidden />
+          {t('nav.studentLogin')}
+        </Link>
+      </Button>
+      <Button
+        size="sm"
+        onClick={() => book({ thenLogin: true })}
+        data-collapse="3"
+        className={cn(TWO_LINE, 'hidden md:inline-flex data-collapsed:hidden!')}
+      >
+        {t('nav.freeGuidance')}
       </Button>
     </>
   );
 }
 
-/** Mobile menu: the same choice, as two full-width buttons. */
+/** Mobile menu: Student Login, Sign up and Explore Courses when signed out (Free Career Guidance sits below it); dashboard and logout when signed in. */
 export function MobileAccountButtons({ onNavigate }: { onNavigate: () => void }) {
   const { t } = useTranslation();
   const { data: user } = useMe();
@@ -76,15 +107,22 @@ export function MobileAccountButtons({ onNavigate }: { onNavigate: () => void })
   }
 
   return (
-    <div className="grid grid-cols-2 gap-2">
-      <Button variant="outline" asChild>
-        <Link to="/login" onClick={onNavigate}>
-          {t('nav.login')}
-        </Link>
-      </Button>
-      <Button variant="secondary" asChild>
-        <Link to="/signup" onClick={onNavigate}>
-          {t('nav.signup')}
+    <div className="space-y-2">
+      <div className="grid grid-cols-2 gap-2">
+        <Button variant="outline" asChild>
+          <Link to="/login" onClick={onNavigate}>
+            <LogIn /> {t('nav.studentLogin').replace('\n', ' ')}
+          </Link>
+        </Button>
+        <Button variant="secondary" asChild>
+          <Link to="/signup" onClick={onNavigate}>
+            {t('nav.signup')}
+          </Link>
+        </Button>
+      </div>
+      <Button variant="outline" className="w-full" asChild>
+        <Link to="/careers" onClick={onNavigate}>
+          {t('nav.exploreCourses').replace('\n', ' ')}
         </Link>
       </Button>
     </div>

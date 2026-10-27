@@ -1,6 +1,8 @@
+import { dateLocale } from '@/i18n';
+
 // Dates are always shown in India time, whatever the device's timezone.
 const TZ = 'Asia/Kolkata';
-const locale = (lang: string) => (lang === 'ta' ? 'ta-IN' : 'en-IN');
+const locale = dateLocale;
 
 export const formatDay = (iso: string, lang: string) =>
   new Date(iso).toLocaleDateString(locale(lang), {

@@ -1,5 +1,6 @@
 import { CloudCheck, FileDown, ListOrdered } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { useLanguage } from '@/i18n';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { useBlogCards } from '@/features/home/api';
@@ -7,8 +8,8 @@ import { useChoiceList } from '@/features/tools/choiceList';
 import { localized } from '@/lib/format';
 
 export function ChoicesPanel() {
-  const { t, i18n } = useTranslation();
-  const isTamil = i18n.resolvedLanguage === 'ta';
+  const { t } = useTranslation();
+  const lang = useLanguage();
   const list = useChoiceList();
 
   return (
@@ -28,7 +29,8 @@ export function ChoicesPanel() {
               <div className="min-w-0">
                 <p className="truncate text-sm font-semibold">{c.college.name}</p>
                 <p className="truncate text-xs text-muted-foreground">
-                  {c.branch.code} · {localized(isTamil, c.branch.name, c.branch.nameTa)} ·{' '}
+                  {c.branch.code} ·{' '}
+                  {localized(lang, c.branch.name, c.branch.nameTa, c.branch.nameHi)} ·{' '}
                   {c.college.district}
                 </p>
               </div>
@@ -46,8 +48,8 @@ export function ChoicesPanel() {
 }
 
 export function ResourcesPanel() {
-  const { t, i18n } = useTranslation();
-  const isTamil = i18n.resolvedLanguage === 'ta';
+  const { t } = useTranslation();
+  const lang = useLanguage();
   const { data: posts = [] } = useBlogCards();
   const files = posts.filter((p) => p.pdfUrl);
 
@@ -68,7 +70,7 @@ export function ResourcesPanel() {
               />
             )}
             <div className="min-w-0 flex-1">
-              <p className="font-semibold">{localized(isTamil, p.title, p.titleTa)}</p>
+              <p className="font-semibold">{localized(lang, p.title, p.titleTa, p.titleHi)}</p>
               <a
                 href={p.pdfUrl!}
                 target="_blank"

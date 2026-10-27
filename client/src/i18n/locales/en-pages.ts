@@ -52,7 +52,7 @@ export const enPages = {
         },
         programs: {
           label: 'Programs',
-          title: 'Career Tuner & StudentPreneur',
+          title: 'AI Career Discovery & StudentPreneur',
           body: 'Video guidance and earn-while-you-learn programs.',
         },
         next: {
@@ -100,9 +100,42 @@ export const enPages = {
       eyebrow: 'Our updates',
       lead: 'A goal without a plan is just a wish.',
       body: "Each of us has a dream and our own goals, but we don't always know the right path to reach them. Our YouTube channel explains every course, where it leads in today's world and why it matters — in short videos. It helps students who are searching for the right path to their goals.",
-      play: 'Play the Career Tuner playlist',
+      shortsTitle: 'Watch our Shorts',
+      shortTitle: 'Career discovery short {{n}}',
       subscribe: 'Subscribe on YouTube',
       follow: 'Follow on Instagram',
+      entrepreneur: {
+        eyebrow: 'Our support',
+        title: 'From Student to Entrepreneur',
+        tagline: "Have a business idea? Let's turn it into an opportunity.",
+        body: 'We help aspiring student entrepreneurs explore their ideas, develop essential business skills, and take the first steps towards building their own ventures.',
+        supportTitle: 'Our Entrepreneurship Support',
+        items: {
+          idea: {
+            title: 'Business Idea Development',
+            body: 'Discover your strengths, explore business opportunities, and learn how to shape your ideas into a business concept.',
+          },
+          mentorship: {
+            title: 'Startup Mentorship',
+            body: 'Get guidance on business planning, market research, and understanding your target customers.',
+          },
+          skills: {
+            title: 'Skills & Business Development',
+            body: 'Build essential skills in communication, marketing, financial planning, and entrepreneurship.',
+          },
+          digital: {
+            title: 'Digital Business Support',
+            body: 'Learn about websites, digital marketing, e-commerce, and online business opportunities.',
+          },
+          resources: {
+            title: 'Startup Resources',
+            body: 'Explore useful resources for business registration, startup schemes, and funding opportunities where eligible.',
+          },
+        },
+        ctaTitle: 'Have a Business Idea?',
+        ctaBody: 'Take the first step towards your entrepreneurial journey.',
+        cta: 'Explore Entrepreneurship Support',
+      },
     },
     studentpreneur: {
       eyebrow: '#Responsible_Employment',

@@ -1,5 +1,6 @@
 import { FlaskConical, Quote, Rocket, Target } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { useLanguage } from '@/i18n';
 import { AnimatedCounter } from '@/components/common/AnimatedCounter';
 import { CallToAction } from '@/components/common/CallToAction';
 import { PageHeader } from '@/components/common/PageHeader';
@@ -14,8 +15,8 @@ import { localized } from '@/lib/format';
 const JOURNEY = ['start', 'schools', 'students', 'districts', 'programs', 'next'] as const;
 
 export default function AboutPage() {
-  const { t, i18n } = useTranslation();
-  const isTamil = i18n.resolvedLanguage === 'ta';
+  const { t } = useTranslation();
+  const lang = useLanguage();
   const { data: settings } = useSettings();
   const { data: team = [] } = useTeam();
   usePageMeta(t('pages.about'));
@@ -43,10 +44,14 @@ export default function AboutPage() {
                 className={`px-4 py-7 text-center ${i % 2 ? 'border-l' : ''} ${i >= 2 ? 'border-t lg:border-t-0' : ''} ${i === 2 ? 'lg:border-l' : ''}`}
               >
                 <p className="font-serif text-3xl font-semibold sm:text-4xl">
-                  <AnimatedCounter value={s.value} suffix={s.suffix} display={s.display} />
+                  <AnimatedCounter
+                    value={s.value}
+                    suffix={s.suffix}
+                    display={s.display && localized(lang, s.display, s.displayTa, s.displayHi)}
+                  />
                 </p>
                 <p className="mt-1 text-sm text-muted-foreground">
-                  {localized(isTamil, s.label, s.labelTa)}
+                  {localized(lang, s.label, s.labelTa, s.labelHi)}
                 </p>
               </li>
             ))}
@@ -92,7 +97,7 @@ export default function AboutPage() {
                 {founder.name}
               </h2>
               <p className="mt-2 text-ink-muted">
-                {localized(isTamil, founder.role, founder.roleTa)}
+                {localized(lang, founder.role, founder.roleTa, founder.roleHi)}
               </p>
               {founder.photoUrl ? (
                 <div className="relative mt-8 max-w-xs">
@@ -102,7 +107,7 @@ export default function AboutPage() {
                   />
                   <img
                     src={founder.photoUrl}
-                    alt={`${founder.name}, ${localized(isTamil, founder.role, founder.roleTa)}`}
+                    alt={`${founder.name}, ${localized(lang, founder.role, founder.roleTa, founder.roleHi)}`}
                     width={388}
                     height={510}
                     loading="lazy"
@@ -137,9 +142,15 @@ export default function AboutPage() {
             title={t('about.team.title')}
             subtitle={t('about.team.subtitle')}
           />
-          <ul className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+          {/* Flex rather than grid so a short team stays centred under the heading. */}
+          <ul className="mt-12 flex flex-wrap justify-center gap-4">
             {members.map((m, i) => (
-              <Reveal as="li" key={m.id} delay={0.05 * i}>
+              <Reveal
+                as="li"
+                key={m.id}
+                delay={0.05 * i}
+                className="w-[calc(50%-0.5rem)] sm:w-[calc((100%-2rem)/3)] lg:w-[calc((100%-3rem)/4)]"
+              >
                 <TiltCard max={7}>
                   <div className="h-full rounded-3xl border bg-card p-5 text-center">
                     {m.photoUrl ? (
@@ -158,7 +169,7 @@ export default function AboutPage() {
                     )}
                     <p className="mt-4 font-semibold">{m.name}</p>
                     <p className="text-sm text-muted-foreground">
-                      {localized(isTamil, m.role, m.roleTa)}
+                      {localized(lang, m.role, m.roleTa, m.roleHi)}
                     </p>
                   </div>
                 </TiltCard>

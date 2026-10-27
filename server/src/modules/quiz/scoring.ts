@@ -1,6 +1,11 @@
 // Pure scoring for the career interest quiz.
 
-export type QuizOption = { label: string; labelTa?: string; weights: Record<string, number> };
+export type QuizOption = {
+  label: string;
+  labelTa?: string;
+  labelHi?: string;
+  weights: Record<string, number>;
+};
 export type QuizQuestionData = { id: string; options: QuizOption[] };
 
 export type ClusterScore = { cluster: string; score: number; percent: number };

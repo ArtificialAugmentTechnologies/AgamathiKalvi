@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useLanguage } from '@/i18n';
 import type { HeaderArtKey } from '@/config/headerArt';
 import { cn } from '@/lib/utils';
 import { HeaderArt } from './HeaderArt';
@@ -23,8 +23,7 @@ export function PageHeader({
   className,
   art,
 }: PageHeaderProps) {
-  const { i18n } = useTranslation();
-  const isTamil = i18n.resolvedLanguage === 'ta';
+  const lang = useLanguage();
 
   return (
     <section className={cn('relative overflow-hidden', className)}>
@@ -46,7 +45,7 @@ export function PageHeader({
           <h1
             className={cn(
               'max-w-3xl font-semibold break-words',
-              isTamil
+              lang === 'ta'
                 ? 'text-[1.7rem] sm:text-4xl lg:text-5xl'
                 : 'text-4xl sm:text-5xl lg:text-6xl',
             )}

@@ -28,7 +28,7 @@ export function DesktopNav() {
                   end={item.to === '/'}
                   className={cn(
                     navItemClass,
-                    'aria-[current=page]:bg-accent aria-[current=page]:text-foreground',
+                    'aria-[current=page]:border-primary aria-[current=page]:bg-accent aria-[current=page]:text-foreground',
                   )}
                 >
                   {t(item.label)}
@@ -39,7 +39,8 @@ export function DesktopNav() {
             <NavigationMenuItem key={item.id} value={item.id}>
               <NavigationMenuTrigger
                 className={cn(
-                  item.children.some((c) => pathname.startsWith(c.to)) && 'text-foreground',
+                  item.children.some((c) => pathname.startsWith(c.to)) &&
+                    'border-primary text-foreground',
                 )}
               >
                 {t(item.label)}

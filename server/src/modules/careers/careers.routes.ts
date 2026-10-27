@@ -12,7 +12,9 @@ const listQuery = z.object({
   cluster: z.string().trim().max(40).optional(),
 });
 
-const streamSelect = { select: { slug: true, name: true, nameTa: true, kind: true } } as const;
+const streamSelect = {
+  select: { slug: true, name: true, nameTa: true, nameHi: true, kind: true },
+} as const;
 
 careersRouter.get('/streams', async (_req, res) => {
   res.json(
@@ -22,6 +24,7 @@ careersRouter.get('/streams', async (_req, res) => {
         slug: true,
         name: true,
         nameTa: true,
+        nameHi: true,
         kind: true,
         _count: { select: { careers: true } },
       },
@@ -42,6 +45,7 @@ careersRouter.get('/', async (req, res) => {
           ? [
               { title: { contains: q, mode: 'insensitive' } },
               { titleTa: { contains: q, mode: 'insensitive' } },
+              { titleHi: { contains: q, mode: 'insensitive' } },
               { summary: { contains: q, mode: 'insensitive' } },
             ]
           : undefined,
@@ -51,6 +55,7 @@ careersRouter.get('/', async (req, res) => {
         slug: true,
         title: true,
         titleTa: true,
+        titleHi: true,
         summary: true,
         entry: true,
         cluster: true,

@@ -3,7 +3,12 @@ export type Community = (typeof COMMUNITIES)[number];
 
 export type Chance = 'safe' | 'moderate' | 'dream';
 
-export type BranchRef = { code: string; name: string; nameTa: string | null };
+export type BranchRef = {
+  code: string;
+  name: string;
+  nameTa: string | null;
+  nameHi: string | null;
+};
 
 export type CollegeRef = {
   id: string;
@@ -37,6 +42,7 @@ export type Scholarship = {
   slug: string;
   name: string;
   nameTa: string | null;
+  nameHi: string | null;
   provider: string;
   description: string;
   amount: string;
@@ -53,7 +59,8 @@ export type QuizQuestion = {
   id: string;
   text: string;
   textTa: string | null;
-  options: { label: string; labelTa?: string }[];
+  textHi: string | null;
+  options: { label: string; labelTa?: string; labelHi?: string }[];
 };
 
 export type ClusterScore = { cluster: string; score: number; percent: number };

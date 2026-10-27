@@ -233,6 +233,7 @@ model Stream {
   slug      String     @unique
   name      String
   nameTa    String?
+  nameHi    String?
   kind      StreamKind
   order     Int        @default(0)
   careers   Career[]
@@ -245,6 +246,7 @@ model Career {
   slug        String        @unique
   title       String
   titleTa     String?
+  titleHi     String?
   streamId    String
   stream      Stream        @relation(fields: [streamId], references: [id], onDelete: Restrict)
   entry       CareerEntry
@@ -278,6 +280,7 @@ model Scholarship {
   slug        String   @unique
   name        String
   nameTa      String?
+  nameHi      String?
   provider    String
   description String   @db.Text
   amount      String
@@ -323,6 +326,7 @@ model Branch {
   code      String          @unique
   name      String
   nameTa    String?
+  nameHi    String?
   colleges  CollegeBranch[]
   createdAt DateTime        @default(now())
   updatedAt DateTime        @updatedAt
@@ -395,7 +399,8 @@ model QuizQuestion {
   order     Int
   text      String
   textTa    String?
-  /// [{ "label": "...", "labelTa": "...", "weights": { "technology": 2, "arts": 1 } }]
+  textHi    String?
+  /// [{ "label": "...", "labelTa": "...", "labelHi": "...", "weights": { "technology": 2, "arts": 1 } }]
   options   Json
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -423,6 +428,7 @@ model BlogCategory {
   slug      String     @unique
   name      String
   nameTa    String?
+  nameHi    String?
   posts     BlogPost[]
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
@@ -433,6 +439,7 @@ model BlogPost {
   slug        String        @unique
   title       String
   titleTa     String?
+  titleHi     String?
   excerpt     String
   /// Markdown body
   body        String        @db.Text
@@ -459,6 +466,7 @@ model Testimonial {
   town      String
   quote     String   @db.Text
   quoteTa   String?  @db.Text
+  quoteHi   String?  @db.Text
   avatarUrl String?
   order     Int      @default(0)
   published Boolean  @default(true)
@@ -473,6 +481,7 @@ model TeamMember {
   name      String
   role      String
   roleTa    String?
+  roleHi    String?
   bio       String?  @db.Text
   photoUrl  String?
   order     Int      @default(0)
@@ -488,6 +497,7 @@ model MediaItem {
   type      MediaType
   title     String
   titleTa   String?
+  titleHi   String?
   /// Image URL (photo/press) — null for YouTube videos
   url       String?
   youtubeId String?
@@ -513,8 +523,10 @@ model Faq {
   id          String   @id @default(cuid())
   question    String
   questionTa  String?
+  questionHi  String?
   answer      String   @db.Text
   answerTa    String?  @db.Text
+  answerHi    String?  @db.Text
   order       Int      @default(0)
   published   Boolean  @default(true)
   needsReview Boolean  @default(false)

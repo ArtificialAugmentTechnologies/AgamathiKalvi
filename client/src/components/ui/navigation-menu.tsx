@@ -38,7 +38,7 @@ export function NavigationMenuItem({
 }
 
 export const navItemClass =
-  'inline-flex h-10 items-center gap-1 rounded-full px-3.5 text-sm font-medium text-foreground/80 transition-colors hover:bg-accent hover:text-foreground focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none data-[active]:text-foreground data-[state=open]:bg-accent data-[state=open]:text-foreground';
+  'inline-flex h-10 items-center gap-1 rounded-full border border-transparent px-3.5 text-sm whitespace-nowrap font-medium text-foreground/80 transition-colors hover:border-primary hover:bg-accent hover:text-foreground focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none data-[active]:text-foreground data-[state=open]:border-primary data-[state=open]:bg-accent data-[state=open]:text-foreground';
 
 export function NavigationMenuTrigger({
   className,

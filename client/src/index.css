@@ -115,13 +115,13 @@
   --radius-xl: calc(var(--radius) + 6px);
   --radius-2xl: calc(var(--radius) + 12px);
 
-  /* Tamil glyphs fall through to Noto automatically (Inter/Source Serif have none). */
+  /* Tamil and Devanagari glyphs fall through to Noto automatically (Inter/Source Serif have none). */
   --font-sans:
-    'Inter Variable', 'Noto Sans Tamil Variable', ui-sans-serif, system-ui, -apple-system,
-    'Segoe UI', sans-serif;
+    'Inter Variable', 'Noto Sans Tamil Variable', 'Noto Sans Devanagari Variable', ui-sans-serif,
+    system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-serif:
-    'Source Serif 4 Variable', 'Noto Serif Tamil Variable', ui-serif, Georgia, 'Times New Roman',
-    serif;
+    'Source Serif 4 Variable', 'Noto Serif Tamil Variable', 'Noto Serif Devanagari Variable',
+    ui-serif, Georgia, 'Times New Roman', serif;
 }
 
 @layer base {
@@ -145,14 +145,18 @@
   ::selection {
     background: color-mix(in srgb, var(--primary) 35%, transparent);
   }
-  /* Tamil script is taller — give it more room. */
+  /* Tamil and Devanagari scripts are taller — give them more room. */
   :lang(ta) h1,
   :lang(ta) h2,
-  :lang(ta) h3 {
+  :lang(ta) h3,
+  :lang(hi) h1,
+  :lang(hi) h2,
+  :lang(hi) h3 {
     line-height: 1.3;
     letter-spacing: 0;
   }
-  :lang(ta) body {
+  :lang(ta) body,
+  :lang(hi) body {
     line-height: 1.7;
   }
 }
@@ -283,6 +287,19 @@
   }
   50% {
     transform: translateY(-10px);
+  }
+}
+
+/* Rotating conic-gradient rim (entrepreneurship box). */
+@property --angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes spin-border {
+  to {
+    --angle: 360deg;
   }
 }
 

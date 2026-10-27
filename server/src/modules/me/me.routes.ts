@@ -114,7 +114,7 @@ const choiceInclude = {
               isSample: true,
             },
           },
-          branch: { select: { code: true, name: true, nameTa: true } },
+          branch: { select: { code: true, name: true, nameTa: true, nameHi: true } },
         },
       },
     },

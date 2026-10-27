@@ -1,6 +1,7 @@
 import { ArrowLeft, Check, Clock, FileDown, Link2 } from 'lucide-react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useLanguage } from '@/i18n';
 import ReactMarkdown from 'react-markdown';
 import { Link, useParams } from 'react-router-dom';
 import { FacebookIcon, WhatsAppIcon } from '@/components/icons/BrandIcons';
@@ -14,10 +15,12 @@ import { formatDate, localized } from '@/lib/format';
 export default function BlogPostPage() {
   const { slug = '' } = useParams();
   const { t, i18n } = useTranslation();
-  const isTamil = i18n.resolvedLanguage === 'ta';
+  const lang = useLanguage();
   const { data: post, isPending, isError } = useBlogPost(slug);
   const [copied, setCopied] = useState(false);
-  const title = post ? localized(isTamil, post.title, post.titleTa) : t('pages.blogPost');
+  const title = post
+    ? localized(lang, post.title, post.titleTa, post.titleHi)
+    : t('pages.blogPost');
   usePageMeta(title);
 
   if (isPending) {
@@ -60,7 +63,7 @@ export default function BlogPostPage() {
         art="blog"
         eyebrow={
           post.category
-            ? localized(isTamil, post.category.name, post.category.nameTa)
+            ? localized(lang, post.category.name, post.category.nameTa, post.category.nameHi)
             : t('blogPage.eyebrow')
         }
         title={title}

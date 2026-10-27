@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import { useState, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useLanguage } from '@/i18n';
 import { Link } from 'react-router-dom';
 import { ThreeStage } from '@/components/three/ThreeStage';
 import { loadHeroScene } from '@/components/three/scenes';
@@ -33,8 +34,8 @@ const PATHS: { to: string; label: TKey }[] = [
 ];
 
 export function HeroSection() {
-  const { t, i18n } = useTranslation();
-  const isTamil = i18n.resolvedLanguage === 'ta';
+  const { t } = useTranslation();
+  const lang = useLanguage();
   const book = useBookCounselling();
   const [calcOpen, setCalcOpen] = useState(false);
   const { data: testimonials } = useTestimonials();
@@ -66,17 +67,20 @@ export function HeroSection() {
             {t('home.eyebrow')}
           </p>
 
-          {/* Tamil words are much longer, so the headline scales down and drops the (synthetic) italic. */}
+          {/* Tamil words are much longer, so the headline scales down. Devanagari needs looser leading for its
+              vowel marks, and only Latin text gets the (synthetic) italic. */}
           <h1
             className={cn(
               'mt-6 font-semibold break-words',
-              isTamil
+              lang === 'ta'
                 ? 'text-[2.1rem] leading-tight sm:text-5xl xl:text-6xl'
-                : 'text-5xl leading-[1.04] sm:text-6xl xl:text-7xl',
+                : lang === 'hi'
+                  ? 'text-5xl leading-tight sm:text-6xl xl:text-7xl'
+                  : 'text-5xl leading-[1.04] sm:text-6xl xl:text-7xl',
             )}
           >
             <span className="block">{t('home.titleLine1')}</span>
-            <span className={cn('text-shimmer-clay block pb-2', !isTamil && 'italic')}>
+            <span className={cn('text-shimmer-clay block pb-2', lang === 'en' && 'italic')}>
               {t('home.titleLine2')}
             </span>
           </h1>
@@ -150,7 +154,7 @@ export function HeroSection() {
             className="top-[6%] left-[2%]"
             delay={0.7}
             icon={<Users />}
-            value="1 Lakh+"
+            value={t('home.badges.studentsValue')}
             label={t('home.badges.students')}
           />
           <FloatingBadge
@@ -183,13 +187,13 @@ export function HeroSection() {
   );
 }
 
-/** The old site's "careers through the ages" illustration, as a band right below the hero. */
+/** Students growing into graduates and professionals, as a band right below the hero. */
 export function HeroBanner() {
   const { t } = useTranslation();
   return (
     <div className="relative -mt-4 overflow-hidden">
       <img
-        src="/images/brand/hero-banner.webp"
+        src="/images/brand/careers-banner.svg"
         alt={t('home.bannerAlt')}
         width={1290}
         height={506}

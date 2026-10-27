@@ -13,7 +13,7 @@ import {
 import { mainNav } from '@/config/navigation';
 import { useBookCounselling } from '@/features/booking/useBookCounselling';
 import { MobileAccountButtons } from './AccountButtons';
-import { LanguageToggle } from './LanguageToggle';
+import { LanguageMenu } from './LanguageMenu';
 import { Logo } from './Logo';
 import { ThemeToggle } from './ThemeToggle';
 
@@ -26,7 +26,12 @@ export function MobileNav() {
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
-        <Button variant="ghost" size="icon" aria-label={t('nav.menu')} className="lg:hidden">
+        <Button
+          variant="ghost"
+          size="icon"
+          aria-label={t('nav.menu')}
+          className="lg:hidden lg:in-data-compact:inline-flex!"
+        >
           <Menu className="size-6" />
         </Button>
       </SheetTrigger>
@@ -81,7 +86,7 @@ export function MobileNav() {
 
         <div className="space-y-3 border-t p-4 pb-safe">
           <div className="flex items-center justify-between">
-            <LanguageToggle />
+            <LanguageMenu side="top" />
             <ThemeToggle />
           </div>
           <MobileAccountButtons onNavigate={close} />
@@ -90,10 +95,10 @@ export function MobileNav() {
             size="lg"
             onClick={() => {
               close();
-              book();
+              book({ thenLogin: true });
             }}
           >
-            {t('common.bookCounselling')}
+            {t('nav.freeGuidance').replace('\n', ' ')}
           </Button>
         </div>
       </SheetContent>

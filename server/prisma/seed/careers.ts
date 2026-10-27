@@ -2,14 +2,27 @@
 // Everything here is `needsReview: true` — Agamathi's R&D team should verify before launch.
 import type { CareerEntry, ClassLevel, Community, Gender, StreamKind } from '@prisma/client';
 
-export const streams: { slug: string; name: string; nameTa: string; kind: StreamKind }[] = [
-  { slug: 'science', name: 'Science', nameTa: 'அறிவியல்', kind: 'science' },
-  { slug: 'commerce', name: 'Commerce', nameTa: 'வணிகவியல்', kind: 'commerce' },
-  { slug: 'arts', name: 'Arts & Humanities', nameTa: 'கலை & மனிதவியல்', kind: 'arts' },
+export const streams: {
+  slug: string;
+  name: string;
+  nameTa: string;
+  nameHi: string;
+  kind: StreamKind;
+}[] = [
+  { slug: 'science', name: 'Science', nameTa: 'அறிவியல்', nameHi: 'विज्ञान', kind: 'science' },
+  { slug: 'commerce', name: 'Commerce', nameTa: 'வணிகவியல்', nameHi: 'वाणिज्य', kind: 'commerce' },
+  {
+    slug: 'arts',
+    name: 'Arts & Humanities',
+    nameTa: 'கலை & மனிதவியல்',
+    nameHi: 'कला और मानविकी',
+    kind: 'arts',
+  },
   {
     slug: 'vocational',
     name: 'Vocational & Diploma',
     nameTa: 'தொழிற்கல்வி & டிப்ளமோ',
+    nameHi: 'व्यावसायिक और डिप्लोमा',
     kind: 'vocational',
   },
 ];
@@ -18,6 +31,7 @@ type CareerSeed = {
   slug: string;
   title: string;
   titleTa: string;
+  titleHi: string;
   stream: string;
   entry: CareerEntry;
   cluster: string;
@@ -36,6 +50,7 @@ export const careers: CareerSeed[] = [
     slug: 'computer-science-engineering',
     title: 'Computer Science Engineering',
     titleTa: 'கணினி அறிவியல் பொறியியல்',
+    titleHi: 'कंप्यूटर साइंस इंजीनियरिंग',
     stream: 'science',
     entry: 'after12',
     cluster: 'technology',
@@ -58,6 +73,7 @@ export const careers: CareerSeed[] = [
     slug: 'mbbs-doctor',
     title: 'Medicine (MBBS)',
     titleTa: 'மருத்துவம் (MBBS)',
+    titleHi: 'चिकित्सा (MBBS)',
     stream: 'science',
     entry: 'after12',
     cluster: 'healthcare',
@@ -80,6 +96,7 @@ export const careers: CareerSeed[] = [
     slug: 'nursing',
     title: 'Nursing (B.Sc)',
     titleTa: 'செவிலியர் (B.Sc)',
+    titleHi: 'नर्सिंग (B.Sc)',
     stream: 'science',
     entry: 'after12',
     cluster: 'healthcare',
@@ -97,6 +114,7 @@ export const careers: CareerSeed[] = [
     slug: 'agriculture',
     title: 'Agriculture (B.Sc)',
     titleTa: 'வேளாண்மை (B.Sc)',
+    titleHi: 'कृषि (B.Sc)',
     stream: 'science',
     entry: 'after12',
     cluster: 'agriculture',
@@ -114,6 +132,7 @@ export const careers: CareerSeed[] = [
     slug: 'chartered-accountant',
     title: 'Chartered Accountant (CA)',
     titleTa: 'பட்டயக் கணக்காளர் (CA)',
+    titleHi: 'चार्टर्ड अकाउंटेंट (CA)',
     stream: 'commerce',
     entry: 'after12',
     cluster: 'finance',
@@ -131,6 +150,7 @@ export const careers: CareerSeed[] = [
     slug: 'law',
     title: 'Law (5-year integrated)',
     titleTa: 'சட்டம் (5 ஆண்டு ஒருங்கிணைந்த)',
+    titleHi: 'क़ानून (5-वर्षीय एकीकृत)',
     stream: 'arts',
     entry: 'after12',
     cluster: 'law-public',
@@ -147,6 +167,7 @@ export const careers: CareerSeed[] = [
     slug: 'journalism-media',
     title: 'Journalism & Mass Media',
     titleTa: 'இதழியல் & ஊடகம்',
+    titleHi: 'पत्रकारिता और जनसंचार',
     stream: 'arts',
     entry: 'after12',
     cluster: 'creative',
@@ -163,6 +184,7 @@ export const careers: CareerSeed[] = [
     slug: 'design',
     title: 'Design (Fashion / Product / UX)',
     titleTa: 'வடிவமைப்பு',
+    titleHi: 'डिज़ाइन (फ़ैशन / प्रोडक्ट / UX)',
     stream: 'arts',
     entry: 'after12',
     cluster: 'creative',
@@ -179,6 +201,7 @@ export const careers: CareerSeed[] = [
     slug: 'hotel-management',
     title: 'Hotel Management',
     titleTa: 'விடுதி மேலாண்மை',
+    titleHi: 'होटल प्रबंधन',
     stream: 'vocational',
     entry: 'after12',
     cluster: 'hospitality',
@@ -196,6 +219,7 @@ export const careers: CareerSeed[] = [
     slug: 'polytechnic-diploma',
     title: 'Polytechnic Diploma',
     titleTa: 'பாலிடெக்னிக் டிப்ளமோ',
+    titleHi: 'पॉलिटेक्निक डिप्लोमा',
     stream: 'vocational',
     entry: 'after10',
     cluster: 'technology',

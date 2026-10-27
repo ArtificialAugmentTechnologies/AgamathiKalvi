@@ -5,8 +5,11 @@ export type Stat = {
   value: number;
   suffix?: string;
   display?: string;
+  displayTa?: string;
+  displayHi?: string;
   label: string;
   labelTa?: string;
+  labelHi?: string;
 };
 
 export type ContactSettings = {
@@ -35,6 +38,7 @@ export type Testimonial = {
   town: string;
   quote: string;
   quoteTa: string | null;
+  quoteHi: string | null;
   avatarUrl: string | null;
 };
 
@@ -43,13 +47,14 @@ export type BlogCard = {
   slug: string;
   title: string;
   titleTa: string | null;
+  titleHi: string | null;
   excerpt: string;
   coverUrl: string | null;
   pdfUrl: string | null;
   readingMins: number;
   comingSoon: boolean;
   publishedAt: string | null;
-  category: { slug: string; name: string; nameTa: string | null } | null;
+  category: { slug: string; name: string; nameTa: string | null; nameHi: string | null } | null;
 };
 
 export type BlogPost = Omit<BlogCard, 'category'> & {
@@ -62,6 +67,7 @@ export type TeamMember = {
   name: string;
   role: string;
   roleTa: string | null;
+  roleHi: string | null;
   bio: string | null;
   photoUrl: string | null;
 };
@@ -71,19 +77,27 @@ export type MediaItem = {
   type: 'photo' | 'video' | 'press';
   title: string;
   titleTa: string | null;
+  titleHi: string | null;
   url: string | null;
   youtubeId: string | null;
   year: number;
   event: string | null;
 };
 
-export type StreamRef = { slug: string; name: string; nameTa: string | null; kind: string };
+export type StreamRef = {
+  slug: string;
+  name: string;
+  nameTa: string | null;
+  nameHi: string | null;
+  kind: string;
+};
 export type Stream = StreamRef & { _count: { careers: number } };
 
 export type CareerSummary = {
   slug: string;
   title: string;
   titleTa: string | null;
+  titleHi: string | null;
   summary: string;
   entry: 'after10' | 'after12';
   cluster: string;
@@ -107,6 +121,8 @@ export type Faq = {
   id: string;
   question: string;
   questionTa: string | null;
+  questionHi: string | null;
   answer: string;
   answerTa: string | null;
+  answerHi: string | null;
 };

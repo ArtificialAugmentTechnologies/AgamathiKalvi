@@ -19,6 +19,18 @@ import {
 } from './api';
 import { dayKey, formatDay, formatTime } from './format';
 
+// The API answers booking conflicts in English; show them in the visitor's language.
+const CONFLICT_KEYS = {
+  'This slot has already started': 'dashboard.bookings.conflicts.started',
+  'You have already booked this slot': 'dashboard.bookings.conflicts.duplicate',
+  'This slot is full — please pick another time': 'dashboard.bookings.conflicts.full',
+  'This slot just changed — please try again': 'dashboard.bookings.conflicts.changed',
+  'This booking can no longer be cancelled': 'dashboard.bookings.conflicts.noCancel',
+  'This session has already started': 'dashboard.bookings.conflicts.sessionStarted',
+} as const;
+const conflictKey = (message: string) =>
+  CONFLICT_KEYS[message as keyof typeof CONFLICT_KEYS] ?? 'forms.errors.generic';
+
 const MODE_ICON: Record<Mode, typeof Phone> = { phone: Phone, video: Video, office: MapPin };
 const STATUS_TONE: Record<Booking['status'], string> = {
   pending: 'bg-brand-yellow/15 text-brand-yellow',
@@ -60,7 +72,11 @@ export function BookingsPanel() {
         },
         onError: (e) =>
           toast.error(
-            e instanceof ApiError && e.status === 409 ? e.message : t('forms.errors.generic'),
+            t(
+              e instanceof ApiError && e.status === 409
+                ? conflictKey(e.message)
+                : 'forms.errors.generic',
+            ),
           ),
       },
     );

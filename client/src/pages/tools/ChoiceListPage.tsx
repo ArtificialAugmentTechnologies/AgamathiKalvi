@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import { useEffect, useState, type DragEvent } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useLanguage } from '@/i18n';
 import { PageHeader } from '@/components/common/PageHeader';
 import { Button } from '@/components/ui/button';
 import { Select } from '@/components/ui/form-controls';
@@ -22,7 +23,7 @@ import { cn } from '@/lib/utils';
 
 export default function ChoiceListPage() {
   const { t, i18n } = useTranslation();
-  const isTamil = i18n.resolvedLanguage === 'ta';
+  const lang = useLanguage();
   usePageMeta(t('pages.choiceList'));
   const list = useChoiceList();
   const [query, setQuery] = useState('');
@@ -80,7 +81,7 @@ export default function ChoiceListPage() {
             <option value="">{t('choiceList.allBranches')}</option>
             {branches.map((b) => (
               <option key={b.code} value={b.code}>
-                {localized(isTamil, b.name, b.nameTa)}
+                {localized(lang, b.name, b.nameTa, b.nameHi)}
               </option>
             ))}
           </Select>
@@ -103,7 +104,8 @@ export default function ChoiceListPage() {
                   <div className="min-w-0 flex-1">
                     <p className="truncate text-sm font-semibold">{o.college.name}</p>
                     <p className="truncate text-xs text-muted-foreground">
-                      {o.branch.code} · {localized(isTamil, o.branch.name, o.branch.nameTa)} ·{' '}
+                      {o.branch.code} ·{' '}
+                      {localized(lang, o.branch.name, o.branch.nameTa, o.branch.nameHi)} ·{' '}
                       {o.college.district}
                     </p>
                   </div>
@@ -190,7 +192,8 @@ export default function ChoiceListPage() {
                     <div className="min-w-0 flex-1">
                       <p className="truncate text-sm font-semibold">{c.college.name}</p>
                       <p className="truncate text-xs text-muted-foreground">
-                        {c.branch.code} · {localized(isTamil, c.branch.name, c.branch.nameTa)}
+                        {c.branch.code} ·{' '}
+                        {localized(lang, c.branch.name, c.branch.nameTa, c.branch.nameHi)}
                       </p>
                     </div>
                     <Button

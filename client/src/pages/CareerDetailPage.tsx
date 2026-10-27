@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useLanguage } from '@/i18n';
 import { Link, useParams } from 'react-router-dom';
 import { CallToAction } from '@/components/common/CallToAction';
 import { PageHeader } from '@/components/common/PageHeader';
@@ -22,10 +23,12 @@ import { formatInrShort, localized } from '@/lib/format';
 
 export default function CareerDetailPage() {
   const { slug = '' } = useParams();
-  const { t, i18n } = useTranslation();
-  const isTamil = i18n.resolvedLanguage === 'ta';
+  const { t } = useTranslation();
+  const lang = useLanguage();
   const { data: career, isPending, isError } = useCareer(slug);
-  const title = career ? localized(isTamil, career.title, career.titleTa) : t('pages.careerDetail');
+  const title = career
+    ? localized(lang, career.title, career.titleTa, career.titleHi)
+    : t('pages.careerDetail');
   usePageMeta(title);
 
   if (isPending) {
@@ -52,7 +55,7 @@ export default function CareerDetailPage() {
     <>
       <PageHeader
         art="careerDetail"
-        eyebrow={`${localized(isTamil, career.stream.name, career.stream.nameTa)} · ${t(`careersHub.entry.${career.entry}`)}`}
+        eyebrow={`${localized(lang, career.stream.name, career.stream.nameTa, career.stream.nameHi)} · ${t(`careersHub.entry.${career.entry}`)}`}
         title={title}
         description={career.summary}
       >

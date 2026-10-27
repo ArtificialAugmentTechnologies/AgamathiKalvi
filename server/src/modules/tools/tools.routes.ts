@@ -39,14 +39,14 @@ const collegeBranchInclude = {
       isSample: true,
     },
   },
-  branch: { select: { code: true, name: true, nameTa: true } },
+  branch: { select: { code: true, name: true, nameTa: true, nameHi: true } },
 } as const;
 
 toolsRouter.get('/branches', async (_req, res) => {
   res.json(
     await prisma.branch.findMany({
       orderBy: { name: 'asc' },
-      select: { code: true, name: true, nameTa: true },
+      select: { code: true, name: true, nameTa: true, nameHi: true },
     }),
   );
 });

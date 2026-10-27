@@ -1,6 +1,7 @@
 import { AlertTriangle, ExternalLink, HandCoins } from 'lucide-react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useLanguage } from '@/i18n';
 import { CallToAction } from '@/components/common/CallToAction';
 import { ChipGroup } from '@/components/common/ChipGroup';
 import { PageHeader } from '@/components/common/PageHeader';
@@ -131,8 +132,8 @@ export default function ScholarshipsPage() {
 }
 
 function ScholarshipCard({ s, index }: { s: Scholarship; index: number }) {
-  const { t, i18n } = useTranslation();
-  const isTamil = i18n.resolvedLanguage === 'ta';
+  const { t } = useTranslation();
+  const lang = useLanguage();
   const tags = [
     s.classLevels.length
       ? `${t('scholarshipsPage.eligibility.classes')}: ${s.classLevels.map((c) => t(`options.class.${c as (typeof CLASSES)[number]}`)).join(', ')}`
@@ -159,7 +160,7 @@ function ScholarshipCard({ s, index }: { s: Scholarship; index: number }) {
           </span>
           <div className="min-w-0 flex-1">
             <h2 className="font-sans text-lg font-semibold">
-              {localized(isTamil, s.name, s.nameTa)}
+              {localized(lang, s.name, s.nameTa, s.nameHi)}
             </h2>
             <p className="text-sm text-muted-foreground">
               {t('scholarshipsPage.provider')}: {s.provider}

@@ -41,13 +41,14 @@ contentRouter.get('/blog', async (_req, res) => {
         slug: true,
         title: true,
         titleTa: true,
+        titleHi: true,
         excerpt: true,
         coverUrl: true,
         pdfUrl: true,
         readingMins: true,
         comingSoon: true,
         publishedAt: true,
-        category: { select: { slug: true, name: true, nameTa: true } },
+        category: { select: { slug: true, name: true, nameTa: true, nameHi: true } },
       },
     }),
   );
@@ -56,7 +57,7 @@ contentRouter.get('/blog', async (_req, res) => {
 contentRouter.get('/blog/:slug', async (req, res) => {
   const post = await prisma.blogPost.findFirst({
     where: { slug: req.params.slug, status: 'published' },
-    include: { category: { select: { slug: true, name: true, nameTa: true } } },
+    include: { category: { select: { slug: true, name: true, nameTa: true, nameHi: true } } },
   });
   if (!post) throw notFound('Article');
   const { needsReview: _review, categoryId: _categoryId, ...publicFields } = post;

@@ -1,4 +1,6 @@
 import { useTranslation } from 'react-i18next';
+import { useLanguage } from '@/i18n';
+import { localized } from '@/lib/format';
 import { WhatsAppIcon } from '@/components/icons/BrandIcons';
 import { SectionHeading } from '@/components/common/SectionHeading';
 import {
@@ -12,10 +14,10 @@ import { useWhatsAppNumber } from '@/hooks/useSettings';
 import { useFaqs } from './api';
 
 export function FaqSection() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const { data: faqs = [] } = useFaqs();
   const whatsapp = useWhatsAppNumber();
-  const isTamil = i18n.resolvedLanguage === 'ta';
+  const lang = useLanguage();
 
   return (
     <section className="container-page py-20 sm:py-28" aria-labelledby="faq-title">
@@ -38,8 +40,12 @@ export function FaqSection() {
         <Accordion type="single" collapsible className="space-y-3">
           {faqs.map((f) => (
             <AccordionItem key={f.id} value={f.id}>
-              <AccordionTrigger>{(isTamil && f.questionTa) || f.question}</AccordionTrigger>
-              <AccordionContent>{(isTamil && f.answerTa) || f.answer}</AccordionContent>
+              <AccordionTrigger>
+                {localized(lang, f.question, f.questionTa, f.questionHi)}
+              </AccordionTrigger>
+              <AccordionContent>
+                {localized(lang, f.answer, f.answerTa, f.answerHi)}
+              </AccordionContent>
             </AccordionItem>
           ))}
         </Accordion>

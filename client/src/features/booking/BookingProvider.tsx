@@ -12,7 +12,12 @@ import {
 const BookingDialog = lazy(() => import('./BookingDialog'));
 
 type BookingContextValue = { open: (preset?: BookingPreset) => void };
-export type BookingPreset = { cutoff?: number; interest?: string };
+export type BookingPreset = {
+  cutoff?: number;
+  interest?: string;
+  /** "Get Free Career Guidance": after a successful booking, take signed-out students to the Student Login. */
+  thenLogin?: boolean;
+};
 
 const BookingContext = createContext<BookingContextValue | null>(null);
 

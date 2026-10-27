@@ -1,6 +1,7 @@
 import { AlertTriangle, Check, ListPlus, MapPin, Pencil, Sparkles } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useLanguage, type Language } from '@/i18n';
 import { Link, useSearchParams } from 'react-router-dom';
 import { CallToAction } from '@/components/common/CallToAction';
 import { ChipGroup } from '@/components/common/ChipGroup';
@@ -28,8 +29,8 @@ const TONE: Record<Chance, string> = {
 const list = (v: string | null) => (v ? v.split(',').filter(Boolean) : []);
 
 export default function PredictorPage() {
-  const { t, i18n } = useTranslation();
-  const isTamil = i18n.resolvedLanguage === 'ta';
+  const { t } = useTranslation();
+  const lang = useLanguage();
   usePageMeta(t('pages.predictor'));
   const [params, setParams] = useSearchParams();
 
@@ -234,7 +235,7 @@ export default function PredictorPage() {
 
               <ul className={cn('mt-5 space-y-3 transition-opacity', isFetching && 'opacity-50')}>
                 {data?.groups[tab].map((p, i) => (
-                  <ResultRow key={p.id} p={p} index={i} isTamil={isTamil} />
+                  <ResultRow key={p.id} p={p} index={i} lang={lang} />
                 ))}
               </ul>
 
@@ -280,7 +281,7 @@ export default function PredictorPage() {
   );
 }
 
-function ResultRow({ p, index, isTamil }: { p: Prediction; index: number; isTamil: boolean }) {
+function ResultRow({ p, index, lang }: { p: Prediction; index: number; lang: Language }) {
   const { t } = useTranslation();
   const saved = useChoiceList().some((c) => c.id === p.id);
   const marginLabel =
@@ -299,7 +300,8 @@ function ResultRow({ p, index, isTamil }: { p: Prediction; index: number; isTami
             )}
           </p>
           <p className="mt-1 text-sm text-muted-foreground">
-            {localized(isTamil, p.branch.name, p.branch.nameTa)} · {p.college.district}
+            {localized(lang, p.branch.name, p.branch.nameTa, p.branch.nameHi)} ·{' '}
+            {p.college.district}
           </p>
         </div>
         <div className="flex items-center gap-4">

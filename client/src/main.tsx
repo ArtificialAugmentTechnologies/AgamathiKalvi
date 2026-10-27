@@ -3,6 +3,8 @@ import '@fontsource-variable/source-serif-4';
 import '@fontsource-variable/source-serif-4/wght-italic.css';
 import '@fontsource-variable/noto-sans-tamil';
 import '@fontsource-variable/noto-serif-tamil';
+import '@fontsource-variable/noto-sans-devanagari';
+import '@fontsource-variable/noto-serif-devanagari';
 import './index.css';
 import './i18n';
 

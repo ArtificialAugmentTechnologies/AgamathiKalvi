@@ -16,7 +16,12 @@ quizRouter.get('/questions', async (_req, res) => {
       id: q.id,
       text: q.text,
       textTa: q.textTa,
-      options: (q.options as QuizOption[]).map(({ label, labelTa }) => ({ label, labelTa })),
+      textHi: q.textHi,
+      options: (q.options as QuizOption[]).map(({ label, labelTa, labelHi }) => ({
+        label,
+        labelTa,
+        labelHi,
+      })),
     })),
   );
 });

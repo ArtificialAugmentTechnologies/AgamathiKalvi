@@ -1,16 +1,21 @@
 import { ChevronLeft, ChevronRight, Quote } from 'lucide-react';
 import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useLanguage } from '@/i18n';
+import { localized } from '@/lib/format';
+import { Reveal } from '@/components/common/Reveal';
 import { SectionHeading } from '@/components/common/SectionHeading';
+import { ShortVideoCard } from '@/components/common/ShortVideoCard';
 import { Button } from '@/components/ui/button';
+import { TESTIMONIAL_CLIPS } from '@/config/videos';
 import { useTestimonials } from './api';
 
 /** Swipeable scroll-snap carousel (3D ring upgrade in phase 3b). */
 export function TestimonialsSection() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const { data: items = [] } = useTestimonials();
   const track = useRef<HTMLUListElement>(null);
-  const isTamil = i18n.resolvedLanguage === 'ta';
+  const lang = useLanguage();
 
   const scrollBy = (dir: 1 | -1) => {
     const el = track.current;
@@ -71,7 +76,7 @@ export function TestimonialsSection() {
           >
             <Quote className="size-8 text-ink-accent" aria-hidden />
             <blockquote className="mt-4 flex-1 font-serif text-lg leading-relaxed">
-              “{(isTamil && item.quoteTa) || item.quote}”
+              “{localized(lang, item.quote, item.quoteTa, item.quoteHi)}”
             </blockquote>
             <div className="mt-6 flex items-center gap-3 border-t border-ink-border pt-5">
               {item.avatarUrl && (
@@ -92,6 +97,24 @@ export function TestimonialsSection() {
           </li>
         ))}
       </ul>
+
+      <div className="container-page relative mt-16">
+        <h3 className="text-center text-2xl font-semibold sm:text-3xl">
+          {t('home.testimonials.clipsTitle')}
+        </h3>
+        <ul className="mx-auto mt-8 grid max-w-5xl grid-cols-1 gap-6 sm:grid-cols-3">
+          {TESTIMONIAL_CLIPS.map((video, i) => (
+            <Reveal as="li" key={video.id} delay={0.08 * i} className="mx-auto w-full max-w-xs">
+              <ShortVideoCard
+                video={video}
+                title={t('home.testimonials.clipTitle', { n: i + 1 })}
+                playLabel={t('common.playVideo')}
+                className="border-ink-border"
+              />
+            </Reveal>
+          ))}
+        </ul>
+      </div>
     </section>
   );
 }

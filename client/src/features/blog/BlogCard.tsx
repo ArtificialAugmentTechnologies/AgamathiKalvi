@@ -1,5 +1,6 @@
 import { ArrowRight, Clock, FileDown } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { useLanguage } from '@/i18n';
 import { Link } from 'react-router-dom';
 import { TiltCard } from '@/components/common/TiltCard';
 import { localized } from '@/lib/format';
@@ -7,8 +8,8 @@ import type { BlogCard as BlogCardData } from '@/types/content';
 
 /** Article card used on the home page and the blog list. */
 export function BlogCard({ post }: { post: BlogCardData }) {
-  const { t, i18n } = useTranslation();
-  const isTamil = i18n.resolvedLanguage === 'ta';
+  const { t } = useTranslation();
+  const lang = useLanguage();
 
   return (
     <TiltCard max={6}>
@@ -34,7 +35,7 @@ export function BlogCard({ post }: { post: BlogCardData }) {
           <p className="flex items-center gap-3 text-xs text-muted-foreground">
             {post.category && (
               <span className="font-semibold text-primary">
-                {localized(isTamil, post.category.name, post.category.nameTa)}
+                {localized(lang, post.category.name, post.category.nameTa, post.category.nameHi)}
               </span>
             )}
             <span className="inline-flex items-center gap-1">
@@ -47,7 +48,7 @@ export function BlogCard({ post }: { post: BlogCardData }) {
               to={`/blog/${post.slug}`}
               className="after:absolute after:inset-0 focus-visible:outline-none"
             >
-              {localized(isTamil, post.title, post.titleTa)}
+              {localized(lang, post.title, post.titleTa, post.titleHi)}
             </Link>
           </h3>
           <p className="mt-2 line-clamp-3 flex-1 text-sm text-muted-foreground">{post.excerpt}</p>

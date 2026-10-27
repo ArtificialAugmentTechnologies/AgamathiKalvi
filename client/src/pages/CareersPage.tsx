@@ -1,6 +1,7 @@
 import { Search, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useLanguage } from '@/i18n';
 import { useSearchParams } from 'react-router-dom';
 import { CallToAction } from '@/components/common/CallToAction';
 import { PageHeader } from '@/components/common/PageHeader';
@@ -23,8 +24,8 @@ const chip = (active: boolean) =>
   );
 
 export default function CareersPage() {
-  const { t, i18n } = useTranslation();
-  const isTamil = i18n.resolvedLanguage === 'ta';
+  const { t } = useTranslation();
+  const lang = useLanguage();
   usePageMeta(t('pages.careers'));
 
   // Filters live in the URL so a filtered list can be shared or bookmarked.
@@ -102,7 +103,7 @@ export default function CareersPage() {
                 aria-pressed={stream === s.slug}
                 onClick={() => update('stream', s.slug)}
               >
-                {localized(isTamil, s.name, s.nameTa)}
+                {localized(lang, s.name, s.nameTa, s.nameHi)}
               </button>
             ))}
           </div>

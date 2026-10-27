@@ -9,6 +9,7 @@ export const siteSettings: Record<string, unknown> = {
       suffix: '+',
       label: 'Career choices',
       labelTa: 'தொழில் வாய்ப்புகள்',
+      labelHi: 'करियर विकल्प',
     },
     {
       key: 'scholarships',
@@ -16,31 +17,44 @@ export const siteSettings: Record<string, unknown> = {
       suffix: '+',
       label: 'Scholarships',
       labelTa: 'உதவித்தொகைகள்',
+      labelHi: 'छात्रवृत्तियाँ',
     },
-    { key: 'jobs', value: 100, suffix: '+', label: 'Job options', labelTa: 'வேலை வாய்ப்புகள்' },
+    {
+      key: 'jobs',
+      value: 100,
+      suffix: '+',
+      label: 'Job options',
+      labelTa: 'வேலை வாய்ப்புகள்',
+      labelHi: 'नौकरी के विकल्प',
+    },
     {
       key: 'colleges',
       value: 150,
       suffix: '+',
       label: 'Partner colleges',
       labelTa: 'கூட்டாளர் கல்லூரிகள்',
+      labelHi: 'साझेदार कॉलेज',
     },
   ],
   stats_about: [
     {
       key: 'years',
-      value: 10,
+      value: 17,
       suffix: '+',
       label: 'Years of experience',
       labelTa: 'ஆண்டு அனுபவம்',
+      labelHi: 'वर्षों का अनुभव',
     },
     {
       key: 'students',
       value: 100000,
       suffix: '+',
       display: '1 Lakh+',
+      displayTa: '1 லட்சம்+',
+      displayHi: '1 लाख+',
       label: 'Students guided',
       labelTa: 'வழிகாட்டப்பட்ட மாணவர்கள்',
+      labelHi: 'मार्गदर्शित छात्र',
     },
     {
       key: 'schools',
@@ -48,6 +62,7 @@ export const siteSettings: Record<string, unknown> = {
       suffix: '+',
       label: 'School programs conducted',
       labelTa: 'பள்ளி நிகழ்ச்சிகள்',
+      labelHi: 'स्कूल कार्यक्रम',
     },
     {
       key: 'districts',
@@ -55,13 +70,14 @@ export const siteSettings: Record<string, unknown> = {
       suffix: '/38',
       label: 'Districts covered',
       labelTa: 'மாவட்டங்கள்',
+      labelHi: 'ज़िले',
     },
   ],
   contact: {
     addressLines: ['No. 25/1, 2nd Floor', 'Vinayagar Koil Street', 'Salem, Tamil Nadu'],
     // Old site listed 603001, which is not a Salem pincode — confirm before launch.
     pincode: null,
-    phones: ['+91 97892 88421', '+91 95973 05959'],
+    phones: ['+91 97892 88421', '+91 95979 11182', '+91 95004 44376', '+91 95979 18886'],
     emails: ['helpdesk@agamathikalvi.com', 'support@agamathikalvi.com'],
     whatsapp: '919789288421',
     hours: 'Mon – Sat, 9:00 AM – 7:00 PM',
@@ -129,21 +145,22 @@ export const testimonials = [
 export const team = [
   {
     name: 'Yuvaraj',
-    role: 'Founder & Managing Director',
-    roleTa: 'நிறுவனர் & நிர்வாக இயக்குநர்',
+    role: 'Founder & CEO',
+    roleTa: 'நிறுவனர் & தலைமை நிர்வாக அதிகாரி',
+    roleHi: 'संस्थापक और मुख्य कार्यकारी अधिकारी',
     photoUrl: '/images/about/founder.webp',
     bio: [
-      'Hi all! I am Yuvaraj, the founder and managing director of Agamathi Kalvi — and a sports and body-building enthusiast. I have been helping the student community choose their dream course in elite institutions since 2012. In almost 10 years in the educational field I have guided nearly 1 lakh students. I love interacting with students, so I visit schools and colleges regularly to conduct career guidance sessions and share knowledge about diverse courses, colleges and career options. I love clearing the doubts of students and parents, helping them choose their dream course with 100% confidence.',
+      'Hi all! I am Yuvaraj, the founder and CEO of Agamathi Kalvi — and a sports and body-building enthusiast. I have been helping the student community choose their dream course in elite institutions since 2012. In 17 years in the educational field I have guided nearly 1 lakh students. I love interacting with students, so I visit schools and colleges regularly to conduct career guidance sessions and share knowledge about diverse courses, colleges and career options. I love clearing the doubts of students and parents, helping them choose their dream course with 100% confidence.',
       'My long-term goal is to create 100+ leaders who can help students from under-privileged and rural backgrounds by giving them proper guidance to choose their dream — changing their lives forever. My team is planning to reach 1000+ schools in the coming years through school programs, to impact the lives of as many students as possible.',
     ].join('\n\n'),
   },
-  { name: 'Sabari Raja', role: 'C.F.O', photoUrl: '/images/team/sabari.webp' },
-  { name: 'Panneer', role: 'C.T.O', photoUrl: '/images/team/panner.webp' },
-  { name: 'Karthick', role: 'Mentor', photoUrl: '/images/team/t1.webp' },
-  { name: 'Boobalan', role: 'Chief Consultant', photoUrl: '/images/team/bhoopalan.webp' },
-  { name: 'Mayakannan', role: 'Consultant', photoUrl: '/images/team/mayakannan.webp' },
-  { name: 'Ajith', role: 'Consultant', photoUrl: '/images/team/ajith.webp' },
-  { name: 'Krishna', role: 'Consultant', photoUrl: '/images/team/krishna-post-1.webp' },
+  {
+    name: 'Sabari',
+    role: 'Managing Director',
+    roleTa: 'நிர்வாக இயக்குநர்',
+    roleHi: 'प्रबंध निदेशक',
+    photoUrl: '/images/team/sabari.webp',
+  },
 ];
 
 // Names read from the logo artwork on the old site.
@@ -180,6 +197,7 @@ export const blogCategory = {
   slug: 'latest-technology',
   name: 'Latest Technology',
   nameTa: 'புதிய தொழில்நுட்பம்',
+  nameHi: 'नवीनतम तकनीक',
 };
 
 export const blogPosts = [
@@ -239,49 +257,67 @@ export const faqs = [
   {
     question: 'Is the first counselling session really free?',
     questionTa: 'முதல் ஆலோசனை அமர்வு உண்மையில் இலவசமா?',
+    questionHi: 'क्या पहला काउंसलिंग सत्र सच में मुफ़्त है?',
     answer:
       'Yes. Your first 1-to-1 counselling session with an Agamathi expert is free for the student and parents. We listen to your interests and marks and suggest the right courses and colleges.',
     answerTa:
       'ஆம். அகமதி நிபுணருடன் உங்கள் முதல் தனிப்பட்ட ஆலோசனை அமர்வு மாணவருக்கும் பெற்றோருக்கும் இலவசம். உங்கள் விருப்பங்களையும் மதிப்பெண்களையும் கேட்டு, சரியான படிப்புகளையும் கல்லூரிகளையும் பரிந்துரைக்கிறோம்.',
+    answerHi:
+      'हाँ। Agamathi विशेषज्ञ के साथ आपका पहला 1-से-1 काउंसलिंग सत्र छात्र और माता-पिता के लिए मुफ़्त है। हम आपकी रुचियाँ और अंक सुनकर सही कोर्स और कॉलेज सुझाते हैं।',
   },
   {
     question: 'Which classes do you guide?',
     questionTa: 'எந்த வகுப்பு மாணவர்களுக்கு வழிகாட்டுகிறீர்கள்?',
+    questionHi: 'आप किन कक्षाओं के छात्रों का मार्गदर्शन करते हैं?',
     answer:
       'We guide Class 10 students on choosing the right stream, and Class 11 and 12 students on courses, entrance exams, colleges and admissions — including engineering, medicine, arts, science, commerce and studies abroad.',
     answerTa:
       '10ஆம் வகுப்பு மாணவர்களுக்கு சரியான பிரிவைத் தேர்ந்தெடுக்கவும், 11 மற்றும் 12ஆம் வகுப்பு மாணவர்களுக்கு படிப்புகள், நுழைவுத் தேர்வுகள், கல்லூரிகள் மற்றும் சேர்க்கை குறித்தும் வழிகாட்டுகிறோம்.',
+    answerHi:
+      'हम कक्षा 10 के छात्रों को सही स्ट्रीम चुनने में, और कक्षा 11 व 12 के छात्रों को कोर्स, प्रवेश परीक्षाओं, कॉलेजों और दाख़िले में मार्गदर्शन देते हैं — इंजीनियरिंग, चिकित्सा, कला, विज्ञान, वाणिज्य और विदेश में पढ़ाई सहित।',
   },
   {
     question: 'How is the TNEA cutoff calculated?',
     questionTa: 'TNEA கட்ஆஃப் எவ்வாறு கணக்கிடப்படுகிறது?',
+    questionHi: 'TNEA कटऑफ़ कैसे निकाला जाता है?',
     answer:
       'TNEA cutoff (out of 200) = Mathematics + Physics ÷ 2 + Chemistry ÷ 2, using your Class 12 marks out of 100 in each subject. Try our free cutoff calculator to see yours instantly.',
     answerTa:
       'TNEA கட்ஆஃப் (200க்கு) = கணிதம் + இயற்பியல் ÷ 2 + வேதியியல் ÷ 2. எங்கள் இலவச கட்ஆஃப் கணிப்பானில் உங்கள் மதிப்பெண்ணை உடனே பாருங்கள்.',
+    answerHi:
+      'TNEA कटऑफ़ (200 में से) = गणित + भौतिकी ÷ 2 + रसायन विज्ञान ÷ 2, हर विषय में आपके कक्षा 12 के 100 में से अंकों के आधार पर। अपना कटऑफ़ तुरंत देखने के लिए हमारा मुफ़्त कटऑफ़ कैलकुलेटर आज़माएँ।',
   },
   {
     question: 'Do you help with the admission process too?',
     questionTa: 'சேர்க்கை நடைமுறையிலும் உதவுகிறீர்களா?',
+    questionHi: 'क्या आप दाख़िले की प्रक्रिया में भी मदद करते हैं?',
     answer:
       'Yes. Once the course and college are finalised, our admission team guides the student through applications, documents and counselling rounds until they are onboarded at their chosen institution.',
     answerTa:
       'ஆம். படிப்பும் கல்லூரியும் முடிவானதும், விண்ணப்பம், ஆவணங்கள் மற்றும் கலந்தாய்வு சுற்றுகள் வழியாக மாணவர் தேர்ந்தெடுத்த கல்வி நிறுவனத்தில் சேரும் வரை எங்கள் சேர்க்கைக் குழு வழிகாட்டுகிறது.',
+    answerHi:
+      'हाँ। कोर्स और कॉलेज तय होने के बाद, हमारी एडमिशन टीम आवेदन, दस्तावेज़ों और काउंसलिंग राउंड में छात्र का मार्गदर्शन करती है, जब तक वह अपने चुने हुए संस्थान में दाख़िला न ले ले।',
   },
   {
     question: 'Can you conduct a career guidance session at our school?',
     questionTa: 'எங்கள் பள்ளியில் தொழில் வழிகாட்டுதல் நிகழ்ச்சி நடத்த முடியுமா?',
+    questionHi: 'क्या आप हमारे स्कूल में करियर मार्गदर्शन सत्र आयोजित कर सकते हैं?',
     answer:
       'Absolutely — we have conducted 300+ school programs across Tamil Nadu. Fill the "Invite us to your school" form and our team will get in touch with you.',
     answerTa:
       'நிச்சயமாக — தமிழ்நாடு முழுவதும் 300க்கும் மேற்பட்ட பள்ளி நிகழ்ச்சிகளை நடத்தியுள்ளோம். "உங்கள் பள்ளிக்கு அழைக்கவும்" படிவத்தை நிரப்புங்கள், எங்கள் குழு உங்களைத் தொடர்பு கொள்ளும்.',
+    answerHi:
+      'बिल्कुल — हम पूरे तमिलनाडु में 300+ स्कूल कार्यक्रम कर चुके हैं। "हमें अपने स्कूल में आमंत्रित करें" फ़ॉर्म भरें और हमारी टीम आपसे संपर्क करेगी।',
   },
   {
     question: 'Is the college predictor result guaranteed?',
     questionTa: 'கல்லூரி கணிப்பு முடிவு உறுதியானதா?',
+    questionHi: 'क्या कॉलेज प्रेडिक्टर का परिणाम पक्का है?',
     answer:
       'No. The predictor is an estimate based on previous years’ closing cutoffs. Actual cutoffs change every year, so book a counselling session to build a safe, balanced choice list.',
     answerTa:
       'இல்லை. கணிப்பு முந்தைய ஆண்டுகளின் இறுதி கட்ஆஃப் அடிப்படையிலான மதிப்பீடு மட்டுமே. ஒவ்வொரு ஆண்டும் கட்ஆஃப் மாறும், எனவே பாதுகாப்பான தேர்வுப் பட்டியலுக்கு ஆலோசனை அமர்வை முன்பதிவு செய்யுங்கள்.',
+    answerHi:
+      'नहीं। प्रेडिक्टर पिछले वर्षों के क्लोज़िंग कटऑफ़ पर आधारित एक अनुमान है। असली कटऑफ़ हर साल बदलते हैं, इसलिए एक सुरक्षित और संतुलित चॉइस लिस्ट बनाने के लिए काउंसलिंग सत्र बुक करें।',
   },
 ];

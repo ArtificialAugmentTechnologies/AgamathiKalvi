@@ -1,6 +1,7 @@
 import { Search } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useLanguage } from '@/i18n';
 import { CallToAction } from '@/components/common/CallToAction';
 import { PageHeader } from '@/components/common/PageHeader';
 import { Reveal } from '@/components/common/Reveal';
@@ -11,15 +12,18 @@ import { localized } from '@/lib/format';
 import { cn } from '@/lib/utils';
 
 export default function BlogPage() {
-  const { t, i18n } = useTranslation();
-  const isTamil = i18n.resolvedLanguage === 'ta';
+  const { t } = useTranslation();
+  const lang = useLanguage();
   const { data: posts = [], isPending } = useBlogCards();
   const [category, setCategory] = useState('');
   const [query, setQuery] = useState('');
   usePageMeta(t('pages.blog'));
 
   const categories = useMemo(() => {
-    const map = new Map<string, { slug: string; name: string; nameTa: string | null }>();
+    const map = new Map<
+      string,
+      { slug: string; name: string; nameTa: string | null; nameHi: string | null }
+    >();
     posts.forEach((p) => p.category && map.set(p.category.slug, p.category));
     return [...map.values()];
   }, [posts]);
@@ -28,7 +32,8 @@ export default function BlogPage() {
   const shown = posts.filter(
     (p) =>
       (!category || p.category?.slug === category) &&
-      (!q || `${p.title} ${p.titleTa ?? ''} ${p.excerpt}`.toLowerCase().includes(q)),
+      (!q ||
+        `${p.title} ${p.titleTa ?? ''} ${p.titleHi ?? ''} ${p.excerpt}`.toLowerCase().includes(q)),
   );
 
   return (
@@ -58,22 +63,24 @@ export default function BlogPage() {
       <section className="container-page pb-20">
         {categories.length > 1 && (
           <div className="mb-8 flex flex-wrap gap-2" role="group">
-            {[{ slug: '', name: t('blogPage.all'), nameTa: null }, ...categories].map((c) => (
-              <button
-                key={c.slug || 'all'}
-                type="button"
-                aria-pressed={category === c.slug}
-                onClick={() => setCategory(c.slug)}
-                className={cn(
-                  'h-10 rounded-full border px-4 text-sm font-medium transition-colors',
-                  category === c.slug
-                    ? 'border-primary bg-primary text-primary-foreground'
-                    : 'bg-card hover:border-primary/50',
-                )}
-              >
-                {localized(isTamil, c.name, c.nameTa)}
-              </button>
-            ))}
+            {[{ slug: '', name: t('blogPage.all'), nameTa: null, nameHi: null }, ...categories].map(
+              (c) => (
+                <button
+                  key={c.slug || 'all'}
+                  type="button"
+                  aria-pressed={category === c.slug}
+                  onClick={() => setCategory(c.slug)}
+                  className={cn(
+                    'h-10 rounded-full border px-4 text-sm font-medium transition-colors',
+                    category === c.slug
+                      ? 'border-primary bg-primary text-primary-foreground'
+                      : 'bg-card hover:border-primary/50',
+                  )}
+                >
+                  {localized(lang, c.name, c.nameTa, c.nameHi)}
+                </button>
+              ),
+            )}
           </div>
         )}
 

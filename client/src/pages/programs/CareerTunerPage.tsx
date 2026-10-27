@@ -3,21 +3,18 @@ import { InstagramIcon, YouTubeIcon } from '@/components/icons/BrandIcons';
 import { CallToAction } from '@/components/common/CallToAction';
 import { PageHeader } from '@/components/common/PageHeader';
 import { Reveal } from '@/components/common/Reveal';
-import { YouTubeEmbed } from '@/components/common/YouTubeEmbed';
+import { ShortVideoCard } from '@/components/common/ShortVideoCard';
 import { Button } from '@/components/ui/button';
+import { CAREER_TUNER_SHORTS } from '@/config/videos';
+import { EntrepreneurSupport } from '@/features/careers/EntrepreneurSupport';
 import { usePageMeta } from '@/hooks/usePageMeta';
 import { useSettings } from '@/hooks/useSettings';
-
-const FALLBACK_CHANNEL = 'UCowIzeqP1biqg7AwNjnhJaA';
 
 export default function CareerTunerPage() {
   const { t } = useTranslation();
   const { data: settings } = useSettings();
   usePageMeta(t('pages.careerTuner'));
 
-  const channelId = settings?.youtube?.channelId ?? FALLBACK_CHANNEL;
-  // A channel's "uploads" playlist id is its channel id with "UC" swapped for "UU".
-  const uploadsPlaylist = `UU${channelId.slice(2)}`;
   const youtube = settings?.socials?.youtube;
   const instagram = settings?.socials?.instagram;
 
@@ -30,20 +27,12 @@ export default function CareerTunerPage() {
         description={t('programPages.careerTuner.lead')}
       />
 
-      <section className="container-page grid grid-cols-1 items-center gap-10 pb-20 lg:grid-cols-[1.2fr_0.8fr]">
-        <Reveal>
-          <YouTubeEmbed
-            playlistId={uploadsPlaylist}
-            title={t('pages.careerTuner')}
-            playLabel={t('programPages.careerTuner.play')}
-            poster="/images/brand/career-tuner.webp"
-          />
-        </Reveal>
-        <Reveal delay={0.1}>
+      <section className="container-page pb-20">
+        <Reveal className="mx-auto max-w-3xl text-center">
           <p className="text-lg leading-relaxed text-muted-foreground">
             {t('programPages.careerTuner.body')}
           </p>
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
             {youtube && (
               <Button asChild>
                 <a href={youtube} target="_blank" rel="noopener noreferrer">
@@ -60,6 +49,23 @@ export default function CareerTunerPage() {
             )}
           </div>
         </Reveal>
+
+        <EntrepreneurSupport />
+
+        <h2 className="mt-20 text-center text-3xl font-semibold sm:text-4xl">
+          {t('programPages.careerTuner.shortsTitle')}
+        </h2>
+        <ul className="mx-auto mt-10 grid max-w-5xl grid-cols-1 gap-6 sm:grid-cols-3">
+          {CAREER_TUNER_SHORTS.map((video, i) => (
+            <Reveal as="li" key={video.id} delay={0.08 * i} className="mx-auto w-full max-w-xs">
+              <ShortVideoCard
+                video={video}
+                title={t('programPages.careerTuner.shortTitle', { n: i + 1 })}
+                playLabel={t('common.playVideo')}
+              />
+            </Reveal>
+          ))}
+        </ul>
       </section>
 
       <CallToAction />

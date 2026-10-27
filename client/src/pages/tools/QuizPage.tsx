@@ -2,6 +2,7 @@ import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { ArrowLeft, ArrowRight, RotateCcw, Sparkles } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useLanguage } from '@/i18n';
 import { Link } from 'react-router-dom';
 import { CallToAction } from '@/components/common/CallToAction';
 import { PageHeader } from '@/components/common/PageHeader';
@@ -27,8 +28,8 @@ const clusterKey = (c: string) =>
     | 'hospitality';
 
 export default function QuizPage() {
-  const { t, i18n } = useTranslation();
-  const isTamil = i18n.resolvedLanguage === 'ta';
+  const { t } = useTranslation();
+  const lang = useLanguage();
   usePageMeta(t('pages.quiz'));
   const { data: questions = [], isPending } = useQuizQuestions();
   const submit = useSubmitQuiz();
@@ -116,7 +117,7 @@ export default function QuizPage() {
                   transition={{ duration: 0.25 }}
                 >
                   <h2 className="mt-8 text-2xl font-semibold sm:text-3xl">
-                    {localized(isTamil, q.text, q.textTa)}
+                    {localized(lang, q.text, q.textTa, q.textHi)}
                   </h2>
                   <ul className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
                     {q.options.map((o, i) => (
@@ -136,7 +137,7 @@ export default function QuizPage() {
                           <span className="grid size-8 shrink-0 place-items-center rounded-lg bg-muted font-semibold">
                             {String.fromCharCode(65 + i)}
                           </span>
-                          <span>{localized(isTamil, o.label, o.labelTa)}</span>
+                          <span>{localized(lang, o.label, o.labelTa, o.labelHi)}</span>
                         </button>
                       </li>
                     ))}
@@ -205,8 +206,8 @@ function Results({ top, onRetake }: { top: ClusterScore[]; onRetake: () => void 
 }
 
 function ClusterCard({ score, rank }: { score: ClusterScore; rank: number }) {
-  const { t, i18n } = useTranslation();
-  const isTamil = i18n.resolvedLanguage === 'ta';
+  const { t } = useTranslation();
+  const lang = useLanguage();
   const key = clusterKey(score.cluster);
   const { data: careers = [] } = useCareers({ cluster: score.cluster });
 
@@ -251,7 +252,7 @@ function ClusterCard({ score, rank }: { score: ClusterScore; rank: number }) {
                     to={`/careers/${c.slug}`}
                     className="inline-flex h-9 items-center rounded-full border px-3.5 text-sm font-medium transition hover:border-primary hover:text-primary"
                   >
-                    {localized(isTamil, c.title, c.titleTa)}
+                    {localized(lang, c.title, c.titleTa, c.titleHi)}
                   </Link>
                 </li>
               ))}
